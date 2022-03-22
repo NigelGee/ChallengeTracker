@@ -107,7 +107,7 @@ extension ContentView {
 
                         healthStore.execute(query)
 
-                    } else {
+                    } else if error != nil {
                         DispatchQueue.main.async {
                             self.showingErrorAlert = true
                         }

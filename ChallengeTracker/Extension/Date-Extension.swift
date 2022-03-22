@@ -37,12 +37,10 @@ extension Date {
         return day
     }
 
-    #if DEBUG
     func nextDay(from number: Int) -> Date {
         guard let date = Calendar.current.date(byAdding: .day, value: number, to: self.startDateOfMonth) else {
             fatalError("Unable to get next day from date")
         }
         return date
     }
-    #endif
 }

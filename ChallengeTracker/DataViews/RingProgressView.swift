@@ -52,7 +52,7 @@ struct RingProgressView: View {
                         Text("\(enteredGoal, specifier: activity.specifier)")
                     }
                     .accessibilityElement()
-                    .accessibilityLabel("progress of \(amountDone, specifier: activity.specifier) of \(enteredGoal, specifier: activity.specifier)")
+                    .accessibilityLabel("progress of \(amountDone, specifier: activity.specifier) \(activity.unit) of \(enteredGoal, specifier: activity.specifier) \(activity.unit)")
                 }
             }
             .foregroundColor(activity.color.opacity(0.7))

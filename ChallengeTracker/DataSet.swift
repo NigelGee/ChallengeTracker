@@ -17,7 +17,6 @@ struct DataSet: Identifiable, Comparable {
         lhs.value < rhs.value
     }
 
-    #if DEBUG
     static let example = [
         DataSet(date: Date.now.startDateOfMonth, value: 6.618235340254783),
         DataSet(date: Date.now.nextDay(from: 1), value: 8.076120900361502),
@@ -33,5 +32,4 @@ struct DataSet: Identifiable, Comparable {
         DataSet(date: Date.now.nextDay(from: 11), value: 5.98709677),
         DataSet(date: Date.now.nextDay(from: 12), value: 15.98709677)
     ]
-    #endif
 }
