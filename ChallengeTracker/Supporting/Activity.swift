@@ -11,7 +11,7 @@ import SwiftUI
 enum Activity: String, CaseIterable {
     case move
     case exercise
-    case distance
+    case distance = "Walking + Running Distance"
     case wheelchair = "Wheelchair Distance"
 
     /// A color depend on activity

@@ -14,27 +14,43 @@ struct SettingsView: View {
 
     /// Store the target goal to User Defaults
     @AppStorage("enteredGoal") var enteredGoal = 0.0
+    @AppStorage("inputAmount") var inputAmount = 0.0
+    @AppStorage("perDay") private var perDay = false
 
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
             Form {
-                Picker("Choose an Activity Type", selection: $activity) {
+                Picker("Activity:", selection: $activity) {
                     ForEach(Activity.allCases, id: \.self) {
                         Text($0.rawValue.capitalized)
                     }
                 }
-                
-                HStack {
-                    Text("Goal:")
-                        .padding(.trailing)
-                        .accessibilityHidden(true)
 
-                    TextField("Enter goal target", value: $enteredGoal, format: .number)
-                        .textFieldStyle(.roundedBorder)
-                        .multilineTextAlignment(.center)
-                        .accessibilityHint("Enter goal target")
+                Section {
+                    HStack {
+                        Text("Goal:")
+                            .padding(.trailing)
+                            .accessibilityHidden(true)
+
+                        TextField("Enter goal target", value: $inputAmount, format: .number)
+                            .textFieldStyle(.roundedBorder)
+                            .multilineTextAlignment(.center)
+                            .accessibilityHint("Enter goal target")
+                            .keyboardType(.decimalPad)
+                    }
+
+                    Toggle("Per Day", isOn: $perDay)
+                }
+
+                Section {
+                    HStack {
+                        Text("Goal per Month:")
+                        Spacer()
+                        Text("\(enteredGoal, specifier: activity.specifier) \(activity.unit)")
+                    }
+                    .accessibilityElement(children: .combine)
                 }
             }
             .navigationTitle("Settings")
@@ -48,6 +64,20 @@ struct SettingsView: View {
                     }
                 }
             }
+            .onChange(of: perDay) { _ in
+                perMonth()
+            }
+            .onChange(of: inputAmount) { _ in
+                perMonth()
+            }
+        }
+    }
+
+    func perMonth() {
+        if perDay {
+            enteredGoal = inputAmount * Double(Date.now.endDateOfMonth.dayNumber)
+        } else {
+            enteredGoal = inputAmount
         }
     }
 }

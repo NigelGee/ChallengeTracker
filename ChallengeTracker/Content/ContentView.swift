@@ -42,10 +42,17 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Button(activity.rawValue.capitalized) { vm.showingSettings = true }
-                    .frame(maxWidth: .infinity, minHeight: 44)
-                    .buttonStyle(.bordered)
-                    .tint(activity.color)
+
+                Button {
+                    vm.showingSettings = true
+                } label: {
+                    Text(activity.rawValue.capitalized)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 5)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(activity.color)
+                .padding(.horizontal)
 
                 Spacer()
 
@@ -83,7 +90,7 @@ struct ContentView: View {
                 Button("Refresh") {
                     vm.getHealthData(for: activity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.bordered)
                 .padding(.bottom)
             }
             .navigationTitle("\(Date.now, format: .dateTime.month(.wide).year())")
