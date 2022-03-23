@@ -9,7 +9,10 @@ import SwiftUI
 
 /// An enum for the types of activity from health data
 enum Activity: String, CaseIterable {
-    case move, exercise, distance, wheelchair
+    case move
+    case exercise
+    case distance
+    case wheelchair = "Wheelchair Distance"
 
     /// A color depend on activity
     var color: Color {

@@ -42,9 +42,10 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                ActivityPickerView(activity: $activity)
-
-                GoalTextFieldView(enteredGoal: $enteredGoal)
+                Button(activity.rawValue.capitalized) { vm.showingSettings = true }
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .buttonStyle(.bordered)
+                    .tint(activity.color)
 
                 Spacer()
 
@@ -70,6 +71,9 @@ struct ContentView: View {
                         .accessibilityElement()
                         .accessibilityLabel("Show details of data")
                         .accessibilityAddTraits(.isButton)
+                        .sheet(isPresented: $vm.showingDetails) {
+                            ListDataView(dataSets: vm.dataSets, goalPerDay: goalPerDay, activity: activity)
+                        }
 
                 }
                 .emptyState(of: vm.dataSets, emptyContent: ProgressView.init)
@@ -89,14 +93,13 @@ struct ContentView: View {
             .onChange(of: activity) { _ in
                 vm.getHealthData(for: activity)
             }
-            .sheet(isPresented: $vm.showingDetails) {
-                ListDataView(dataSets: vm.dataSets, goalPerDay: goalPerDay, activity: activity)
-            }
+
             .alert("Error", isPresented: $vm.showingErrorAlert) {
                 Button("OK") { }
             } message: {
                 Text("Opps, error get health data, check that you allow the app to read the data.")
             }
+            .fullScreenCover(isPresented: $vm.showingSettings, content: SettingsView.init)
         }
     }
 }

@@ -19,6 +19,8 @@ extension ContentView {
         /// A Boolean to show details of heath data
         @Published var showingDetails = false
 
+        @Published var showingSettings = false
+
         /// A Boolean to show alert if unable to access health data
         @Published var showingErrorAlert = false
 

@@ -10,9 +10,8 @@
 		8B2F75CC27E25C3400154E82 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CB27E25C3400154E82 /* BarView.swift */; };
 		8B2F75CE27E25CC800154E82 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CD27E25CC800154E82 /* BarChartView.swift */; };
 		8B2F75D027E265BE00154E82 /* ListDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CF27E265BE00154E82 /* ListDataView.swift */; };
-		8B2F75D227E2680300154E82 /* ActivityPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75D127E2680300154E82 /* ActivityPickerView.swift */; };
-		8B2F75D427E268D000154E82 /* GoalTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75D327E268D000154E82 /* GoalTextFieldView.swift */; };
 		8B4769FF27E46F57001122C9 /* ActivityTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4769FE27E46F57001122C9 /* ActivityTextView.swift */; };
+		8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E650A27EAAEBF00004694 /* SettingsView.swift */; };
 		8BC0F48427E22E9300BCA513 /* ChallengeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */; };
 		8BC0F48627E22E9300BCA513 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0F48527E22E9300BCA513 /* ContentView.swift */; };
 		8BC0F48827E22E9800BCA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BC0F48727E22E9800BCA513 /* Assets.xcassets */; };
@@ -34,10 +33,9 @@
 		8B2F75CB27E25C3400154E82 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		8B2F75CD27E25CC800154E82 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		8B2F75CF27E265BE00154E82 /* ListDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataView.swift; sourceTree = "<group>"; };
-		8B2F75D127E2680300154E82 /* ActivityPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityPickerView.swift; sourceTree = "<group>"; };
-		8B2F75D327E268D000154E82 /* GoalTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTextFieldView.swift; sourceTree = "<group>"; };
 		8B2F75D527E288B500154E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8B4769FE27E46F57001122C9 /* ActivityTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTextView.swift; sourceTree = "<group>"; };
+		8B6E650A27EAAEBF00004694 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8BC0F48027E22E9300BCA513 /* ChallengeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChallengeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTrackerApp.swift; sourceTree = "<group>"; };
 		8BC0F48527E22E9300BCA513 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +67,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B6E650827EAAE7600004694 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8B6E650A27EAAEBF00004694 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		8B6E650927EAAE9D00004694 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				8BC0F48527E22E9300BCA513 /* ContentView.swift */,
+				8BC0F4A327E2415200BCA513 /* ContentViewModel.swift */,
+				8B4769FE27E46F57001122C9 /* ActivityTextView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
 		8BC0F47727E22E9300BCA513 = {
 			isa = PBXGroup;
 			children = (
@@ -93,11 +109,8 @@
 				8BC0F49127E22F1D00BCA513 /* ChallengeTracker.entitlements */,
 				8BC0F4A127E238DC00BCA513 /* DataSet.swift */,
 				8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */,
-				8BC0F48527E22E9300BCA513 /* ContentView.swift */,
-				8BC0F4A327E2415200BCA513 /* ContentViewModel.swift */,
-				8B2F75D127E2680300154E82 /* ActivityPickerView.swift */,
-				8B2F75D327E268D000154E82 /* GoalTextFieldView.swift */,
-				8B4769FE27E46F57001122C9 /* ActivityTextView.swift */,
+				8B6E650927EAAE9D00004694 /* Content */,
+				8B6E650827EAAE7600004694 /* Settings */,
 				8BC0F4A727E252F300BCA513 /* DataViews */,
 				8BC0F49C27E2349000BCA513 /* Supporting */,
 				8BC0F49527E22FC000BCA513 /* Extension */,
@@ -229,8 +242,8 @@
 				8BC0F4A427E2415200BCA513 /* ContentViewModel.swift in Sources */,
 				8B2F75CC27E25C3400154E82 /* BarView.swift in Sources */,
 				8B2F75D027E265BE00154E82 /* ListDataView.swift in Sources */,
+				8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */,
 				8BC0F4AB27E2542700BCA513 /* RingProgressView.swift in Sources */,
-				8B2F75D427E268D000154E82 /* GoalTextFieldView.swift in Sources */,
 				8BC0F49E27E2359100BCA513 /* Activity.swift in Sources */,
 				8BC0F48627E22E9300BCA513 /* ContentView.swift in Sources */,
 				8BC0F4A927E2531500BCA513 /* RingView.swift in Sources */,
@@ -238,7 +251,6 @@
 				8BC0F48427E22E9300BCA513 /* ChallengeTrackerApp.swift in Sources */,
 				8BC0F49B27E2317500BCA513 /* Date-Extension.swift in Sources */,
 				8BC0F4A227E238DC00BCA513 /* DataSet.swift in Sources */,
-				8B2F75D227E2680300154E82 /* ActivityPickerView.swift in Sources */,
 				8BC0F4A027E2383E00BCA513 /* EmptyStateViewModifier.swift in Sources */,
 				8B4769FF27E46F57001122C9 /* ActivityTextView.swift in Sources */,
 				8B2F75CE27E25CC800154E82 /* BarChartView.swift in Sources */,
