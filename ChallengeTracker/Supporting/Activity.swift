@@ -13,6 +13,7 @@ enum Activity: String, CaseIterable {
     case exercise
     case distance = "Walking + Running Distance"
     case wheelchair = "Wheelchair Distance"
+    case cycling = "Cycling Distane"
 
     /// A color depend on activity
     var color: Color {
@@ -21,7 +22,7 @@ enum Activity: String, CaseIterable {
             return .move
         case .exercise:
             return .exercise
-        case .distance, .wheelchair:
+        case .distance, .wheelchair, .cycling:
             return .distance
         }
     }
@@ -33,7 +34,7 @@ enum Activity: String, CaseIterable {
             return "kCal"
         case .exercise:
             return "min"
-        case .distance, .wheelchair:
+        case .distance, .wheelchair, .cycling:
             return "mi"
 
         }
@@ -44,7 +45,7 @@ enum Activity: String, CaseIterable {
         switch self {
         case .move, .exercise:
             return "%.f"
-        case .distance, .wheelchair:
+        case .distance, .wheelchair, .cycling:
             return "%.1f"
         }
     }
@@ -56,7 +57,7 @@ enum Activity: String, CaseIterable {
             return 0.1
         case .exercise:
             return 1
-        case .distance, .wheelchair:
+        case .distance, .wheelchair, .cycling:
             return 10
         }
     }

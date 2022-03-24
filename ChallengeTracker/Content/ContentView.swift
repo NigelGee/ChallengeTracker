@@ -83,7 +83,7 @@ struct ContentView: View {
                         }
 
                 }
-                .emptyState(of: vm.dataSets, emptyContent: ProgressView.init)
+                .emptyState(of: vm.dataSets, emptyContent: EmptyProgressView.init)
 
                 Spacer()
 

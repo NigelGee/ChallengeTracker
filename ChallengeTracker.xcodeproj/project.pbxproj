@@ -12,6 +12,7 @@
 		8B2F75D027E265BE00154E82 /* ListDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CF27E265BE00154E82 /* ListDataView.swift */; };
 		8B4769FF27E46F57001122C9 /* ActivityTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4769FE27E46F57001122C9 /* ActivityTextView.swift */; };
 		8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E650A27EAAEBF00004694 /* SettingsView.swift */; };
+		8B6E650D27EC719500004694 /* EmptyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E650C27EC719500004694 /* EmptyProgressView.swift */; };
 		8BC0F48427E22E9300BCA513 /* ChallengeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */; };
 		8BC0F48627E22E9300BCA513 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0F48527E22E9300BCA513 /* ContentView.swift */; };
 		8BC0F48827E22E9800BCA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BC0F48727E22E9800BCA513 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		8B2F75D527E288B500154E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8B4769FE27E46F57001122C9 /* ActivityTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTextView.swift; sourceTree = "<group>"; };
 		8B6E650A27EAAEBF00004694 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8B6E650C27EC719500004694 /* EmptyProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyProgressView.swift; sourceTree = "<group>"; };
 		8BC0F48027E22E9300BCA513 /* ChallengeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChallengeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTrackerApp.swift; sourceTree = "<group>"; };
 		8BC0F48527E22E9300BCA513 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				8BC0F48527E22E9300BCA513 /* ContentView.swift */,
 				8BC0F4A327E2415200BCA513 /* ContentViewModel.swift */,
 				8B4769FE27E46F57001122C9 /* ActivityTextView.swift */,
+				8B6E650C27EC719500004694 /* EmptyProgressView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B6E650D27EC719500004694 /* EmptyProgressView.swift in Sources */,
 				8BC0F4A427E2415200BCA513 /* ContentViewModel.swift in Sources */,
 				8B2F75CC27E25C3400154E82 /* BarView.swift in Sources */,
 				8B2F75D027E265BE00154E82 /* ListDataView.swift in Sources */,
@@ -399,7 +403,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = co.uk.theappforest.ChallengeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -432,7 +436,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = co.uk.theappforest.ChallengeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

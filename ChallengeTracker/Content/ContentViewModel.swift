@@ -52,6 +52,9 @@ extension ContentView {
             case .wheelchair:
                 typeIdentifier = .distanceWheelchair
                 unit = .mile()
+            case .cycling:
+                typeIdentifier = .distanceCycling
+                unit = .mile()
             }
 
             if HKHealthStore.isHealthDataAvailable() {
@@ -59,7 +62,8 @@ extension ContentView {
                     HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!,
                     HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
                     HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!,
-                    HKObjectType.quantityType(forIdentifier: .distanceWheelchair)!
+                    HKObjectType.quantityType(forIdentifier: .distanceWheelchair)!,
+                    HKObjectType.quantityType(forIdentifier: .distanceCycling)!
                 ])
 
                 healthStore.requestAuthorization(toShare: [], read: readData) { success, error in
