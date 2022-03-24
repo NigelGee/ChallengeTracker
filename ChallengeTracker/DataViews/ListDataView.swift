@@ -15,7 +15,7 @@ struct ListDataView: View {
 
     var body: some View {
         VStack {
-            List(dataSets) { dataSet in
+            List(dataSets.reversed()) { dataSet in
                 HStack {
                     Text(dataSet.date, style: .date)
                     Spacer()
