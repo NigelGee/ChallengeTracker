@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// a extension to UIWindow for share sheet
 extension UIWindow {
     static var key: UIWindow? {
         guard let scene = UIApplication.shared.connectedScenes.first,

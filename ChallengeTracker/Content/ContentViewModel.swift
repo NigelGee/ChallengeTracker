@@ -31,7 +31,7 @@ extension ContentView {
 
 
         /// A method to get health data
-        /// - Parameter activity: the type of activity to get
+        /// - Parameter activity: the type of activity
         func getHealthData(for activity: Activity) {
             let healthStore = HKHealthStore()
             dataSets.removeAll(keepingCapacity: true)
@@ -124,6 +124,11 @@ extension ContentView {
             }
         }
 
+        /// a method for share sheet
+        /// - Parameters:
+        ///   - enteredGoal: the entered goal target
+        ///   - activity: the type of activity
+        ///   - progressState: progress of the amount above/behind/completed
         func shareResult(enteredGoal: Double, activity: Activity, progressState: ProgressState) {
             let result = Int((sumDataSets / enteredGoal * 100)).formatted(.percent)
             var resultString = ""
@@ -141,6 +146,7 @@ extension ContentView {
     }
 }
 
+/// extension for audio graph
 extension ContentView: AXChartDescriptorRepresentable {
     func makeChartDescriptor() -> AXChartDescriptor {
         let xAxis = AXCategoricalDataAxisDescriptor(
