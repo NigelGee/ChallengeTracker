@@ -80,7 +80,8 @@ struct ContentView: View {
                             vm.showingDetails = true
                         }
                         .accessibilityElement()
-                        .accessibilityLabel("Show details of data")
+                        .accessibilityLabel("chart of \(activity.rawValue)")
+                        .accessibilityChartDescriptor(self)
                         .accessibilityAddTraits(.isButton)
                         .sheet(isPresented: $vm.showingDetails) {
                             ListDataView(dataSets: vm.dataSets,
