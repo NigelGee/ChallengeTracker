@@ -12,7 +12,9 @@ struct ActivityTextView: View {
     let dataSets: [DataSet]
     let enteredGoal: Double
     let progressState: ProgressState
-    let activity: Activity
+    
+    /// Store the activity type to User Defaults
+    @AppStorage("activity") var activity = Activity.distance
 
     /// Calculates the average amount to do
     var amountToDoPerDay: Double {

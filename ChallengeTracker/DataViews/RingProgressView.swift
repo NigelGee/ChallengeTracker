@@ -16,8 +16,8 @@ struct RingProgressView: View {
     ///  The amount done from heath data
     let amountDone: Double
 
-    /// The type of activity selected
-    let activity: Activity
+    /// Store the activity type to User Defaults
+    @AppStorage("activity") var activity = Activity.distance
 
 
     /// Calculates the amount of target to date as 0 to 1
@@ -33,6 +33,14 @@ struct RingProgressView: View {
     ///  Calculates the amount done from health data as 0 to 1
     var doneAmount: Double {
         amountDone / enteredGoal
+    }
+
+    var accessibilityLabel: Text {
+        if amountDone > goalToDate {
+            return Text("you are ahead of daily goal, \(amountDone, specifier: activity.specifier) \(activity.unit) of \(enteredGoal, specifier: activity.specifier) \(activity.unit)")
+        } else {
+            return Text("you are behind of daily goal, \(amountDone, specifier: activity.specifier) \(activity.unit) of \(enteredGoal, specifier: activity.specifier) \(activity.unit)")
+        }
     }
 
     var body: some View {
@@ -52,7 +60,7 @@ struct RingProgressView: View {
                         Text("\(enteredGoal, specifier: activity.specifier)")
                     }
                     .accessibilityElement()
-                    .accessibilityLabel("progress of \(amountDone, specifier: activity.specifier) \(activity.unit) of \(enteredGoal, specifier: activity.specifier) \(activity.unit)")
+                    .accessibilityLabel(accessibilityLabel)
                 }
             }
             .foregroundColor(activity.color.opacity(0.7))

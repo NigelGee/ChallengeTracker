@@ -11,7 +11,9 @@ import SwiftUI
 struct ListDataView: View {
     let dataSets: [DataSet]
     let goalPerDay: Double
-    let activity: Activity
+    
+    /// Store the activity type to User Defaults
+    @AppStorage("activity") var activity = Activity.distance
 
     var body: some View {
         VStack {

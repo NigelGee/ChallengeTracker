@@ -27,7 +27,7 @@ struct EmptyProgressView: View {
     }
 
     func noData() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             withAnimation {
                 showingNoData = true
             }
@@ -38,5 +38,6 @@ struct EmptyProgressView: View {
 struct EmptyProgressView_Previews: PreviewProvider {
     static var previews: some View {
         EmptyProgressView()
+            .preferredColorScheme(.dark)
     }
 }

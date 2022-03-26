@@ -58,20 +58,24 @@ struct ContentView: View {
 
                 VStack {
                     RingProgressView(enteredGoal: enteredGoal,
-                                     amountDone: vm.sumDataSets,
-                                     activity: activity)
+                                     amountDone: vm.sumDataSets)
                     .frame(height: 230)
                     .padding(.top)
 
-                    ActivityTextView(dataSets: vm.dataSets, enteredGoal: enteredGoal, progressState: progressState, activity: activity)
+                    ActivityTextView(dataSets: vm.dataSets,
+                                     enteredGoal: enteredGoal,
+                                     progressState: progressState)
                         .font(.caption2)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .frame(width: 260)
 
-                    BarChartView(dataSets: vm.dataSets, enteredGoal: enteredGoal, activity: activity)
+                    BarChartView(dataSets: vm.dataSets,
+                                 enteredGoal: enteredGoal)
                         .frame(height: 230)
                         .padding()
+                        .background(.ultraThickMaterial)
+                        .cornerRadius(10)
                         .onTapGesture {
                             vm.showingDetails = true
                         }
@@ -79,7 +83,8 @@ struct ContentView: View {
                         .accessibilityLabel("Show details of data")
                         .accessibilityAddTraits(.isButton)
                         .sheet(isPresented: $vm.showingDetails) {
-                            ListDataView(dataSets: vm.dataSets, goalPerDay: goalPerDay, activity: activity)
+                            ListDataView(dataSets: vm.dataSets,
+                                         goalPerDay: goalPerDay)
                         }
 
                 }
@@ -114,6 +119,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
+//            .preferredColorScheme(.dark)
     }
 }

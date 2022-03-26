@@ -57,8 +57,10 @@ enum Activity: String, CaseIterable {
             return 0.1
         case .exercise:
             return 1
-        case .distance, .wheelchair, .cycling:
+        case .distance, .wheelchair:
             return 10
+        case .cycling:
+            return 5
         }
     }
 }

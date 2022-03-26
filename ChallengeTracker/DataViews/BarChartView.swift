@@ -11,8 +11,10 @@ import SwiftUI
 struct BarChartView: View {
     let dataSets: [DataSet]
     let enteredGoal: Double
-    let activity :Activity
     let endDayOfMonth = Date.now.endDateOfMonth.dayNumber
+
+    /// Store the activity type to User Defaults
+    @AppStorage("activity") var activity = Activity.distance
 
     var goalPerDay: Double {
         enteredGoal / Double(endDayOfMonth)
