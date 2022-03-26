@@ -13,6 +13,7 @@
 		8B4769FF27E46F57001122C9 /* ActivityTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4769FE27E46F57001122C9 /* ActivityTextView.swift */; };
 		8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E650A27EAAEBF00004694 /* SettingsView.swift */; };
 		8B6E650D27EC719500004694 /* EmptyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E650C27EC719500004694 /* EmptyProgressView.swift */; };
+		8B6E656227EF8B8D00004694 /* UIWindow-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E656127EF8B8D00004694 /* UIWindow-Extension.swift */; };
 		8BC0F48427E22E9300BCA513 /* ChallengeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */; };
 		8BC0F48627E22E9300BCA513 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0F48527E22E9300BCA513 /* ContentView.swift */; };
 		8BC0F48827E22E9800BCA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BC0F48727E22E9800BCA513 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		8B4769FE27E46F57001122C9 /* ActivityTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTextView.swift; sourceTree = "<group>"; };
 		8B6E650A27EAAEBF00004694 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8B6E650C27EC719500004694 /* EmptyProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyProgressView.swift; sourceTree = "<group>"; };
+		8B6E656127EF8B8D00004694 /* UIWindow-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow-Extension.swift"; sourceTree = "<group>"; };
 		8BC0F48027E22E9300BCA513 /* ChallengeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChallengeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTrackerApp.swift; sourceTree = "<group>"; };
 		8BC0F48527E22E9300BCA513 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				8BC0F49827E230EA00BCA513 /* Color-Extension.swift */,
 				8BC0F49A27E2317500BCA513 /* Date-Extension.swift */,
+				8B6E656127EF8B8D00004694 /* UIWindow-Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */,
 				8BC0F4AB27E2542700BCA513 /* RingProgressView.swift in Sources */,
 				8BC0F49E27E2359100BCA513 /* Activity.swift in Sources */,
+				8B6E656227EF8B8D00004694 /* UIWindow-Extension.swift in Sources */,
 				8BC0F48627E22E9300BCA513 /* ContentView.swift in Sources */,
 				8BC0F4A927E2531500BCA513 /* RingView.swift in Sources */,
 				8BC0F49927E230EA00BCA513 /* Color-Extension.swift in Sources */,

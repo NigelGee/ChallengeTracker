@@ -99,13 +99,22 @@ struct ContentView: View {
                 .padding(.bottom)
             }
             .navigationTitle("\(Date.now, format: .dateTime.month(.wide).year())")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        vm.shareResult(enteredGoal: enteredGoal, activity: activity, progressState: progressState)
+                    } label: {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                    }
+                    .disabled(vm.dataSets.isEmpty)
+                }
+            }
             .onAppear {
                 vm.getHealthData(for: activity)
             }
             .onChange(of: activity) { _ in
                 vm.getHealthData(for: activity)
             }
-
             .alert("Error", isPresented: $vm.showingErrorAlert) {
                 Button("OK") { }
             } message: {
@@ -119,6 +128,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-//            .preferredColorScheme(.dark)
+            .preferredColorScheme(.dark)
     }
 }

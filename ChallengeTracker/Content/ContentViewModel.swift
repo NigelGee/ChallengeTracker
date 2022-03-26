@@ -123,5 +123,20 @@ extension ContentView {
                 print("No HealthKit data available")
             }
         }
+
+        func shareResult(enteredGoal: Double, activity: Activity, progressState: ProgressState) {
+            let result = Int((sumDataSets / enteredGoal * 100)).formatted(.percent)
+            var resultString = ""
+            switch progressState {
+            case .doneAhead, .doneBehind:
+                resultString = "Challenge Tracker for \(activity.rawValue.capitalized): I have done \(result) of \(enteredGoal) \(activity.unit)."
+            case .completed:
+                resultString = "Challenge Tracker for \(activity.rawValue.capitalized): I completed this month goal."
+            }
+
+            let activityController = UIActivityViewController(activityItems: [resultString], applicationActivities: nil)
+            UIWindow.key?.rootViewController!
+                .present(activityController, animated: true)
+        }
     }
 }
