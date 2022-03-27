@@ -24,8 +24,6 @@ extension ContentView {
         /// A Boolean to show alert if unable to access health data
         @Published var showingErrorAlert = false
 
-        @Published var showingNoData = false
-
         /// Calculate the sum of health data for a days
         var sumDataSets: Double {
             dataSets.map { $0.value }.reduce(0, +)
@@ -102,16 +100,18 @@ extension ContentView {
                             }
 
                             statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
+                                let date = statistics.startDate
                                 if let quantity = statistics.sumQuantity() {
                                     let value = quantity.doubleValue(for: unit)
-                                    let date = statistics.startDate
+
                                     let dataSet = DataSet(date: date, value: value)
                                     DispatchQueue.main.async {
                                         self.dataSets.append(dataSet)
                                     }
                                 } else {
+                                    let dataSet = DataSet(date: date, value: 0.0)
                                     DispatchQueue.main.async {
-                                        self.showingNoData = true
+                                        self.dataSets.append(dataSet)
                                     }
                                 }
                             }

@@ -44,9 +44,13 @@ struct BarChartView: View {
                 HStack(alignment: .bottom, spacing: 4) {
                     ForEach(0..<endDayOfMonth, id: \.self) { index in
                         if index < dataSets.count {
-                            BarView(
-                                doneAmount: dataSets[index].value * activity.increment,
-                                activity: activity)
+                            if dataSets[index].value == 0 {
+                                BarView(doneAmount: 5, activity: activity)
+                            } else {
+                                BarView(
+                                    doneAmount: dataSets[index].value * activity.increment,
+                                    activity: activity)
+                            }
                         } else {
                             BarView(doneAmount: 5, activity: activity)
                         }
