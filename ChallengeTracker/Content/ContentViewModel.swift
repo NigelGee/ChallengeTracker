@@ -133,51 +133,17 @@ extension ContentView {
             let result = Int((sumDataSets / enteredGoal * 100)).formatted(.percent)
             var resultString = ""
             switch progressState {
-            case .doneAhead, .doneBehind:
-                resultString = "Challenge Tracker for \(activity.rawValue.capitalized): I have done \(result) of \(enteredGoal) \(activity.unit)."
+            case .doneAhead:
+                resultString = "My \(activity.rawValue.capitalized) activity this month: I am beating the daily average with \(result) of \(enteredGoal) \(activity.unit). #ChallengeTracker"
+            case .doneBehind:
+                resultString = "My \(activity.rawValue.capitalized) activity this month: I have done \(result) of \(enteredGoal) \(activity.unit). #ChallengeTracker"
             case .completed:
-                resultString = "Challenge Tracker for \(activity.rawValue.capitalized): I completed this month goal."
+                resultString = "I completed this month goal for \(activity.rawValue.capitalized) of \(enteredGoal) \(activity.unit). #ChallengeTracker"
             }
 
             let activityController = UIActivityViewController(activityItems: [resultString], applicationActivities: nil)
             UIWindow.key?.rootViewController!
                 .present(activityController, animated: true)
         }
-    }
-}
-
-/// extension for audio graph
-extension ContentView: AXChartDescriptorRepresentable {
-    func makeChartDescriptor() -> AXChartDescriptor {
-        let xAxis = AXCategoricalDataAxisDescriptor(
-            title: "Date",
-            categoryOrder: vm.dataSets.map { "\($0.date.formatted(date: .numeric, time: .omitted))" }
-        )
-
-        let min = vm.dataSets.map(\.value).min() ?? 0.0
-        let max = vm.dataSets.map(\.value).max() ?? 0.0
-
-        let yAxis = AXNumericDataAxisDescriptor(
-            title: "\(activity.unit) done",
-            range: min...max,
-            gridlinePositions: []) { value in
-                "\(value) \(activity.unit)"
-            }
-
-        let series = AXDataSeriesDescriptor(
-            name: "",
-            isContinuous: false,
-            dataPoints: vm.dataSets.map {
-                .init(x: $0.date.formatted(date: .numeric, time: .omitted), y: $0.value)
-            }
-        )
-
-        return AXChartDescriptor(
-            title: "A chart representing \(activity.rawValue)",
-            summary: "your maximum amount is \(max) \(activity.unit)",
-            xAxis: xAxis,
-            yAxis: yAxis,
-            additionalAxes: [],
-            series: [series])
     }
 }
