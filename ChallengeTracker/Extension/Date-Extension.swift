@@ -43,4 +43,11 @@ extension Date {
         }
         return date
     }
+
+    func nextDay() -> Date {
+        guard let date = Calendar.current.date(byAdding: .day, value: 1, to: self) else {
+            fatalError("Unable to get next day from date")
+        }
+        return date
+    }
 }

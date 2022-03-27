@@ -42,8 +42,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-
                 Button {
+                    vm.showingNoData = false
                     vm.showingSettings = true
                 } label: {
                     Text(activity.rawValue.capitalized)
@@ -89,7 +89,9 @@ struct ContentView: View {
                         }
 
                 }
-                .emptyState(of: vm.dataSets, emptyContent: EmptyProgressView.init)
+                .emptyState(of: vm.dataSets ) {
+                    EmptyProgressView(showingNoData: $vm.showingNoData)
+                }
 
                 Spacer()
 

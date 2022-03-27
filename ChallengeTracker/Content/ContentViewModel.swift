@@ -24,6 +24,8 @@ extension ContentView {
         /// A Boolean to show alert if unable to access health data
         @Published var showingErrorAlert = false
 
+        @Published var showingNoData = false
+
         /// Calculate the sum of health data for a days
         var sumDataSets: Double {
             dataSets.map { $0.value }.reduce(0, +)
@@ -106,6 +108,10 @@ extension ContentView {
                                     let dataSet = DataSet(date: date, value: value)
                                     DispatchQueue.main.async {
                                         self.dataSets.append(dataSet)
+                                    }
+                                } else {
+                                    DispatchQueue.main.async {
+                                        self.showingNoData = true
                                     }
                                 }
                             }
