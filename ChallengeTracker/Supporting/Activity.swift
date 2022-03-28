@@ -13,7 +13,7 @@ enum Activity: String, CaseIterable {
     case exercise
     case distance = "Walking + Running Distance"
     case wheelchair = "Wheelchair Distance"
-    case cycling = "Cycling Distane"
+    case cycling = "Cycling Distance"
 
     /// A color depend on activity
     var color: Color {
