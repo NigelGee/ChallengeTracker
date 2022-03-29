@@ -35,7 +35,7 @@ extension ContentView: AXChartDescriptorRepresentable {
 
         return AXChartDescriptor(
             title: "A chart representing \(activity.rawValue)",
-            summary: "your maximum amount is \(max) \(activity.unit)",
+            summary: "Your maximum is \(String(format: activity.specifier, max)) \(activity.unit) and your minimum is \(String(format: activity.specifier, min)) \(activity.unit)",
             xAxis: xAxis,
             yAxis: yAxis,
             additionalAxes: [],
