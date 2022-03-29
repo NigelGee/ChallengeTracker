@@ -110,6 +110,9 @@ struct ContentView: View {
                 }
             }
             .onAppear {
+                if enteredGoal.isZero {
+                    vm.showingSettings = true
+                }
                 vm.getHealthData(for: activity)
             }
             .onChange(of: activity) { _ in
