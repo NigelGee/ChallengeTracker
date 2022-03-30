@@ -22,7 +22,7 @@ extension ContentView: AXChartDescriptorRepresentable {
             title: "amount done",
             range: min...max,
             gridlinePositions: []) { value in
-                "\(value) \(activity.unit)"
+                "\(value)"
             }
 
         let series = AXDataSeriesDescriptor(
@@ -35,7 +35,7 @@ extension ContentView: AXChartDescriptorRepresentable {
 
         return AXChartDescriptor(
             title: "A chart representing \(activity.rawValue)",
-            summary: "Your maximum is \(String(format: activity.specifier, max)) \(activity.unit) and your minimum is \(String(format: activity.specifier, min)) \(activity.unit)",
+            summary: "Your maximum is \(String(format: activity.specifier, max)) and your minimum is \(String(format: activity.specifier, min))",
             xAxis: xAxis,
             yAxis: yAxis,
             additionalAxes: [],
