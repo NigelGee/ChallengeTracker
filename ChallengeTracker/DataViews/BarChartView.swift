@@ -15,16 +15,25 @@ struct BarChartView: View {
 
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.distance
+    @AppStorage("distanceType") var distanceType = DistanceType.miles
 
     var goalPerDay: Double {
         enteredGoal / Double(endDayOfMonth)
+    }
+
+    var increment: Double {
+        if activity == .distance || activity == .wheelchair || activity == .cycling, distanceType == .kilometers {
+            return activity.increment / 1.6
+        }
+
+        return activity.increment
     }
 
     /// Calculates the bottom of the graph depending on the size of the maximum height of data
     var baseHeight: Double {
         let maxDataSet = dataSets.max()
         let maxValue = maxDataSet?.value ?? 0.0
-        return maxValue * activity.increment / 2
+        return maxValue * increment / 2
     }
 
     var body: some View {
@@ -34,11 +43,11 @@ struct BarChartView: View {
                 HStack {
                     Rectangle()
                         .frame(width: 310, height: 2)
-                        .offset(CGSize(width: 10, height: baseHeight - (goalPerDay * activity.increment)))
+                        .offset(CGSize(width: 10, height: baseHeight - (goalPerDay * increment)))
 
                     Text("\(goalPerDay, specifier: activity.specifier)")
                         .font(.system(size: 15))
-                        .offset(CGSize(width: 10, height: baseHeight - (goalPerDay * activity.increment)))
+                        .offset(CGSize(width: 10, height: baseHeight - (goalPerDay * increment)))
                 }
                 
                 HStack(alignment: .bottom, spacing: 4) {
@@ -48,7 +57,7 @@ struct BarChartView: View {
                                 BarView(doneAmount: 5, activity: activity)
                             } else {
                                 BarView(
-                                    doneAmount: dataSets[index].value * activity.increment,
+                                    doneAmount: dataSets[index].value * increment,
                                     activity: activity)
                             }
                         } else {

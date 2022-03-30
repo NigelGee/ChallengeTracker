@@ -12,6 +12,22 @@ struct SettingsView: View {
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.distance
 
+    /// Store the type of distance measurement to User Defaults
+    @AppStorage("distanceType") var distanceType = DistanceType.miles
+
+    /// A String of the unit type of activity
+    var unit: String {
+        if activity.unit == "mi" {
+            switch distanceType {
+            case .miles:
+                return "mi"
+            case .kilometers:
+                return "km"
+            }
+        }
+        return activity.unit
+    }
+
     /// Store the target goal to User Defaults
     @AppStorage("enteredGoal") var enteredGoal = 0.0
     @AppStorage("inputAmount") var inputAmount = 0.0
@@ -26,6 +42,15 @@ struct SettingsView: View {
                     ForEach(Activity.allCases, id: \.self) {
                         Text($0.rawValue.capitalized)
                     }
+                }
+
+                if activity == .distance || activity == .wheelchair || activity == .cycling {
+                    Picker("Distance Type", selection: $distanceType) {
+                        ForEach(DistanceType.allCases, id:\.self) {
+                            Text($0.rawValue.capitalized)
+                        }
+                    }
+                    .pickerStyle(.segmented)
                 }
 
                 Section {
@@ -48,7 +73,7 @@ struct SettingsView: View {
                     HStack {
                         Text("Goal per Month:")
                         Spacer()
-                        Text("\(enteredGoal, specifier: activity.specifier) \(activity.unit)")
+                        Text("\(enteredGoal, specifier: activity.specifier) \(unit)")
                     }
                     .accessibilityElement(children: .combine)
                 }

@@ -15,6 +15,21 @@ struct ActivityTextView: View {
     
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.distance
+    /// Store the type of distance measurement to User Defaults
+    @AppStorage("distanceType") var distanceType = DistanceType.miles
+
+    /// A String of the unit type of activity
+    var unit: String {
+        if activity.unit == "mi" {
+            switch distanceType {
+            case .miles:
+                return "mi"
+            case .kilometers:
+                return "km"
+            }
+        }
+        return activity.unit
+    }
 
     /// Calculates the average amount to do
     var amountToDoPerDay: Double {
@@ -41,9 +56,9 @@ struct ActivityTextView: View {
     var body: some View {
         switch progressState {
         case .doneAhead:
-            Text("Keep it going. Do an average \(amountToDoPerDay, specifier: activity.specifier) \(activity.unit) per day to reach your goal.")
+            Text("Keep it going. Do an average \(amountToDoPerDay, specifier: activity.specifier) \(unit) per day to reach your goal.")
         case .doneBehind:
-            Text("You can do it! Do an average \(amountToDoPerDay, specifier: activity.specifier) \(activity.unit) per day to reach your goal.")
+            Text("You can do it! Do an average \(amountToDoPerDay, specifier: activity.specifier) \(unit) per day to reach your goal.")
         case .completed:
             Text("You have completed your goal this month. Try to see if you can do next month.")
         }

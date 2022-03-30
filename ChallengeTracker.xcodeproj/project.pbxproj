@@ -14,6 +14,7 @@
 		8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E650A27EAAEBF00004694 /* SettingsView.swift */; };
 		8B6E656227EF8B8D00004694 /* UIWindow-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E656127EF8B8D00004694 /* UIWindow-Extension.swift */; };
 		8B6E658027F0BAD000004694 /* Chart-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E657F27F0BAD000004694 /* Chart-Extension.swift */; };
+		8BAFF06927F4B8FA00EAF97C /* DistanceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAFF06827F4B8FA00EAF97C /* DistanceType.swift */; };
 		8BC0F48427E22E9300BCA513 /* ChallengeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */; };
 		8BC0F48627E22E9300BCA513 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC0F48527E22E9300BCA513 /* ContentView.swift */; };
 		8BC0F48827E22E9800BCA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BC0F48727E22E9800BCA513 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		8B6E650A27EAAEBF00004694 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8B6E656127EF8B8D00004694 /* UIWindow-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow-Extension.swift"; sourceTree = "<group>"; };
 		8B6E657F27F0BAD000004694 /* Chart-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chart-Extension.swift"; sourceTree = "<group>"; };
+		8BAFF06827F4B8FA00EAF97C /* DistanceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceType.swift; sourceTree = "<group>"; };
 		8BC0F48027E22E9300BCA513 /* ChallengeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChallengeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BC0F48327E22E9300BCA513 /* ChallengeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTrackerApp.swift; sourceTree = "<group>"; };
 		8BC0F48527E22E9300BCA513 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -155,9 +157,10 @@
 		8BC0F49C27E2349000BCA513 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
-				8BC0F49D27E2359100BCA513 /* Activity.swift */,
 				8BC0F49F27E2383E00BCA513 /* EmptyStateViewModifier.swift */,
+				8BC0F49D27E2359100BCA513 /* Activity.swift */,
 				8BC878B927E579A1004CA2F1 /* ProgressState.swift */,
+				8BAFF06827F4B8FA00EAF97C /* DistanceType.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				8BC0F49927E230EA00BCA513 /* Color-Extension.swift in Sources */,
 				8BC0F48427E22E9300BCA513 /* ChallengeTrackerApp.swift in Sources */,
 				8BC0F49B27E2317500BCA513 /* Date-Extension.swift in Sources */,
+				8BAFF06927F4B8FA00EAF97C /* DistanceType.swift in Sources */,
 				8BC0F4A227E238DC00BCA513 /* DataSet.swift in Sources */,
 				8BC0F4A027E2383E00BCA513 /* EmptyStateViewModifier.swift in Sources */,
 				8B4769FF27E46F57001122C9 /* ActivityTextView.swift in Sources */,

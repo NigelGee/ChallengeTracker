@@ -18,6 +18,21 @@ struct RingProgressView: View {
 
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.distance
+    /// Store the type of distance measurement to User Defaults
+    @AppStorage("distanceType") var distanceType = DistanceType.miles
+
+    /// A String of the unit type of activity
+    var unit: String {
+        if activity.unit == "mi" {
+            switch distanceType {
+            case .miles:
+                return "mi"
+            case .kilometers:
+                return "km"
+            }
+        }
+        return activity.unit
+    }
 
 
     /// Calculates the amount of target to date as 0 to 1
@@ -37,9 +52,9 @@ struct RingProgressView: View {
 
     var accessibilityLabel: Text {
         if amountDone > goalToDate {
-            return Text("you are ahead of daily goal, \(amountDone, specifier: activity.specifier) \(activity.unit) of \(enteredGoal, specifier: activity.specifier) \(activity.unit)")
+            return Text("you are ahead of daily goal, \(amountDone, specifier: activity.specifier) \(unit) of \(enteredGoal, specifier: activity.specifier) \(unit)")
         } else {
-            return Text("you are behind of daily goal, \(amountDone, specifier: activity.specifier) \(activity.unit) of \(enteredGoal, specifier: activity.specifier) \(activity.unit)")
+            return Text("you are behind of daily goal, \(amountDone, specifier: activity.specifier) \(unit) of \(enteredGoal, specifier: activity.specifier) \(unit)")
         }
     }
 

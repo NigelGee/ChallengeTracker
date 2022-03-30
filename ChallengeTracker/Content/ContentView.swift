@@ -14,6 +14,8 @@ struct ContentView: View {
 
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.distance
+    /// Store the type of distance measurement to User Defaults
+    @AppStorage("distanceType") var distanceType = DistanceType.miles
 
     @StateObject var vm = ViewModel()
 
@@ -93,7 +95,7 @@ struct ContentView: View {
                 Spacer()
 
                 Button("Refresh") {
-                    vm.getHealthData(for: activity)
+                    vm.getHealthData(for: activity, in: distanceType)
                 }
                 .buttonStyle(.bordered)
                 .padding(.bottom)
@@ -102,7 +104,10 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
-                        vm.shareResult(enteredGoal: enteredGoal, activity: activity, progressState: progressState)
+                        vm.shareResult(enteredGoal: enteredGoal,
+                                       activity: activity,
+                                       progressState: progressState,
+                                       distanceType: distanceType)
                     } label: {
                         Label("Share", systemImage: "square.and.arrow.up")
                     }
@@ -113,10 +118,16 @@ struct ContentView: View {
                 if enteredGoal.isZero {
                     vm.showingSettings = true
                 }
-                vm.getHealthData(for: activity)
+                vm.getHealthData(for: activity, in: distanceType)
             }
             .onChange(of: activity) { _ in
-                vm.getHealthData(for: activity)
+                vm.getHealthData(for: activity, in: distanceType)
+            }
+            .onChange(of: distanceType) { _ in
+                vm.getHealthData(for: activity, in: distanceType)
+            }
+            .onChange(of: enteredGoal) { _ in
+                vm.getHealthData(for: activity, in: distanceType)
             }
             .alert("Error", isPresented: $vm.showingErrorAlert) {
                 Button("OK") { }

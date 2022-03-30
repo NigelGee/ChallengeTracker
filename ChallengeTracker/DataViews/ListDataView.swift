@@ -15,13 +15,29 @@ struct ListDataView: View {
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.distance
 
+    /// Store the type of distance measurement to User Defaults
+    @AppStorage("distanceType") var distanceType = DistanceType.miles
+
+    /// A String of the unit type of activity
+    var unit: String {
+        if activity.unit == "mi" {
+            switch distanceType {
+            case .miles:
+                return "mi"
+            case .kilometers:
+                return "km"
+            }
+        }
+        return activity.unit
+    }
+
     var body: some View {
         VStack {
             List(dataSets.reversed()) { dataSet in
                 HStack {
                     Text(dataSet.date, style: .date)
                     Spacer()
-                    Text("\(dataSet.value, specifier: activity.specifier) \(activity.unit)")
+                    Text("\(dataSet.value, specifier: activity.specifier) \(unit)")
                         .foregroundColor(dataSet.value >= goalPerDay ? .primary : .secondary)
                 }
                 .accessibilityElement(children: .combine)

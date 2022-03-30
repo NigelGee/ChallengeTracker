@@ -32,29 +32,24 @@ extension ContentView {
 
         /// A method to get health data
         /// - Parameter activity: the type of activity
-        func getHealthData(for activity: Activity) {
+        func getHealthData(for activity: Activity, in distanceType: DistanceType) {
             let healthStore = HKHealthStore()
             dataSets.removeAll(keepingCapacity: true)
 
-            var typeIdentifier: HKQuantityTypeIdentifier
             var unit: HKUnit
 
             switch activity {
             case .move:
-                typeIdentifier = .activeEnergyBurned
                 unit = .kilocalorie()
             case .exercise:
-                typeIdentifier = .appleExerciseTime
                 unit = .minute()
-            case .distance:
-                typeIdentifier = .distanceWalkingRunning
-                unit = .mile()
-            case .wheelchair:
-                typeIdentifier = .distanceWheelchair
-                unit = .mile()
-            case .cycling:
-                typeIdentifier = .distanceCycling
-                unit = .mile()
+            case .distance, .wheelchair, .cycling:
+                switch distanceType {
+                case .miles:
+                    unit = .mile()
+                case .kilometers:
+                    unit = .meterUnit(with: .kilo)
+                }
             }
 
             if HKHealthStore.isHealthDataAvailable() {
@@ -84,7 +79,7 @@ extension ContentView {
                         var interval = DateComponents()
                         interval.day = 1
 
-                        guard let quantityType = HKObjectType.quantityType(forIdentifier: typeIdentifier) else {
+                        guard let quantityType = HKObjectType.quantityType(forIdentifier: activity.typeIdentifier) else {
                             fatalError("Unable to create a Quantity Type")
                         }
 
@@ -135,16 +130,28 @@ extension ContentView {
         ///   - enteredGoal: the entered goal target
         ///   - activity: the type of activity
         ///   - progressState: progress of the amount above/behind/completed
-        func shareResult(enteredGoal: Double, activity: Activity, progressState: ProgressState) {
+        func shareResult(enteredGoal: Double, activity: Activity, progressState: ProgressState, distanceType: DistanceType) {
+            var unit: String {
+                if activity.unit == "mi" {
+                    switch distanceType {
+                    case .miles:
+                        return "mi"
+                    case .kilometers:
+                        return "km"
+                    }
+                }
+                return activity.unit
+            }
+
             let result = Int((sumDataSets / enteredGoal * 100)).formatted(.percent)
             var resultString = ""
             switch progressState {
             case .doneAhead:
-                resultString = "My \(activity.rawValue.capitalized) activity this month: I am beating the daily average with \(result) of \(enteredGoal) \(activity.unit). #ChallengeTracker"
+                resultString = "My \(activity.rawValue.capitalized) activity this month: I am beating the daily average with \(result) of \(enteredGoal) \(unit). #ChallengeTracker"
             case .doneBehind:
-                resultString = "My \(activity.rawValue.capitalized) activity this month: I have done \(result) of \(enteredGoal) \(activity.unit). #ChallengeTracker"
+                resultString = "My \(activity.rawValue.capitalized) activity this month: I have done \(result) of \(enteredGoal) \(unit). #ChallengeTracker"
             case .completed:
-                resultString = "I completed this month goal for \(activity.rawValue.capitalized) of \(enteredGoal) \(activity.unit). #ChallengeTracker"
+                resultString = "I completed this month goal for \(activity.rawValue.capitalized) of \(enteredGoal) \(unit). #ChallengeTracker"
             }
 
             let activityController = UIActivityViewController(activityItems: [resultString], applicationActivities: nil)

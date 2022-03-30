@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HealthKit
 
 /// An enum for the types of activity from health data
 enum Activity: String, CaseIterable {
@@ -61,6 +62,21 @@ enum Activity: String, CaseIterable {
             return 10
         case .cycling:
             return 5
+        }
+    }
+
+    var typeIdentifier: HKQuantityTypeIdentifier {
+        switch self {
+        case .move:
+            return .activeEnergyBurned
+        case .exercise:
+            return .appleExerciseTime
+        case .distance:
+            return .distanceWalkingRunning
+        case .wheelchair:
+            return .distanceWheelchair
+        case .cycling:
+            return .distanceCycling
         }
     }
 }
