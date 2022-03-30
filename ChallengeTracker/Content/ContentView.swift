@@ -134,6 +134,11 @@ struct ContentView: View {
             } message: {
                 Text("Opps, error get health data, check that you allow the app to read the data.")
             }
+            .alert("Error", isPresented: $vm.showingNoHealthAlert) {
+                Button("OK") { }
+            } message: {
+                Text("Device does not support health data. Please use another device.")
+            }
             .fullScreenCover(isPresented: $vm.showingSettings, content: SettingsView.init)
         }
     }

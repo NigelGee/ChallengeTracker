@@ -24,6 +24,8 @@ extension ContentView {
         /// A Boolean to show alert if unable to access health data
         @Published var showingErrorAlert = false
 
+        @Published var showingNoHealthAlert = false
+
         /// Calculate the sum of health data for a days
         var sumDataSets: Double {
             dataSets.map { $0.value }.reduce(0, +)
@@ -122,6 +124,7 @@ extension ContentView {
                 }
             } else {
                 print("No HealthKit data available")
+                self.showingNoHealthAlert = true
             }
         }
 
