@@ -60,7 +60,7 @@ struct ActivityTextView: View {
         case .doneBehind:
             Text("You can do it! Do an average \(amountToDoPerDay, specifier: activity.specifier) \(unit) per day to reach your goal.")
         case .completed:
-            Text("You have completed your goal this month. Try to see if you can do next month.")
+            Text("You have completed your goal of \(enteredGoal, specifier: activity.specifier) \(unit) this month. Try to see if you can do next month.")
         }
     }
 }
