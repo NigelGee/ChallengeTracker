@@ -12,4 +12,5 @@ extension Color {
     static let distance = Color("distance")
     static let move = Color("move")
     static let exercise = Color("exercise")
+    static let swimming = Color("swimming")
 }

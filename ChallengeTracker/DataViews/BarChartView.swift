@@ -29,11 +29,15 @@ struct BarChartView: View {
         return activity.increment
     }
 
-    /// Calculates the bottom of the graph depending on the size of the maximum height of data
-    var baseHeight: Double {
+    var centreHeight: Double {
         let maxDataSet = dataSets.max()
         let maxValue = maxDataSet?.value ?? 0.0
-        return maxValue * increment / 2
+        return maxValue
+    }
+
+    /// Calculates the bottom of the graph depending on the size of the maximum height of data
+    var baseHeight: Double {
+        centreHeight * increment / 2
     }
 
     var body: some View {
@@ -67,7 +71,7 @@ struct BarChartView: View {
                 }
 
             }
-            .offset(x: 0, y: 45)
+            .offset(x: 0, y: 110 - ((centreHeight / 2) * increment))
         }
     }
 }
