@@ -89,6 +89,13 @@ struct ContentView: View {
                                              goalPerDay: goalPerDay)
                             }
 
+                        Group {
+                            Text("Tap on chart to show details")
+                            Text("Updated: \(Date.now, format: .dateTime)")
+                        }
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+
                     }
                 }
                 .emptyState(of: vm.dataSets, emptyContent: ProgressView.init)

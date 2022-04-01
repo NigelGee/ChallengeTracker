@@ -43,12 +43,12 @@ struct BarChartView: View {
                 HStack {
                     Rectangle()
                         .frame(width: 310, height: 2)
-                        .offset(CGSize(width: 10, height: baseHeight - (goalPerDay * increment)))
 
                     Text("\(goalPerDay, specifier: activity.specifier)")
                         .font(.system(size: 15))
-                        .offset(CGSize(width: 10, height: baseHeight - (goalPerDay * increment)))
+
                 }
+                .offset(CGSize(width: 10, height: baseHeight - (goalPerDay * increment)))
                 
                 HStack(alignment: .bottom, spacing: 4) {
                     ForEach(0..<endDayOfMonth, id: \.self) { index in
@@ -65,13 +65,9 @@ struct BarChartView: View {
                         }
                     }
                 }
+
             }
-            Group {
-                Text("Tap on chart to show details")
-                Text("Updated: \(Date.now, format: .dateTime)")
-            }
-            .font(.caption2)
-            .foregroundColor(.secondary)
+            .offset(x: 0, y: 45)
         }
     }
 }
