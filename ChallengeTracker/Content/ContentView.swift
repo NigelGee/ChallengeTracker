@@ -91,6 +91,7 @@ struct ContentView: View {
 
                         Group {
                             Text("Tap on chart to show details")
+                                .accessibilityHidden(true)
                             Text("Updated: \(Date.now, format: .dateTime)")
                         }
                         .font(.caption2)
