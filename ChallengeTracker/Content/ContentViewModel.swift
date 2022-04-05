@@ -12,7 +12,13 @@ extension ContentView {
 
     /// View Model for Content View
     class ViewModel: ObservableObject {
-
+        /// Store the target goal to User Defaults
+        @AppStorage("enteredGoal") var enteredGoal = 0.0
+        /// Store the activity type to User Defaults
+        @AppStorage("activity") var activity = Activity.distance
+        /// Store the type of distance measurement to User Defaults
+        @AppStorage("distanceType") var distanceType = DistanceType.miles
+        
         /// An Obervered object for health data
         @Published var dataSets = [DataSet]()
 
@@ -31,10 +37,38 @@ extension ContentView {
             dataSets.map { $0.value }.reduce(0, +)
         }
 
+        /// Calculate the target goal by number of days in the month
+        var goalPerDay: Double {
+            let date = Date.now
+            let endDateOfMonth = date.endDateOfMonth
+            let daysInMonth = endDateOfMonth.dayNumber
+            return enteredGoal / Double(daysInMonth)
+        }
+
+        var goalToDate: Double {
+            goalPerDay * Double(Date.now.dayNumber)
+        }
+
+        var progressState: ProgressState {
+            if sumDataSets > enteredGoal {
+                return .completed
+            } else if sumDataSets > goalPerDay {
+                return .doneAhead
+            } else {
+                return .doneBehind
+            }
+        }
+
+        func checkStatus() {
+            if enteredGoal.isZero {
+                showingSettings = true
+            }
+            getHealthData()
+        }
 
         /// A method to get health data
         /// - Parameter activity: the type of activity
-        func getHealthData(for activity: Activity, in distanceType: DistanceType) {
+        func getHealthData() {
             let healthStore = HKHealthStore()
             dataSets.removeAll(keepingCapacity: true)
 
@@ -84,7 +118,7 @@ extension ContentView {
                         var interval = DateComponents()
                         interval.day = 1
 
-                        guard let quantityType = HKObjectType.quantityType(forIdentifier: activity.typeIdentifier) else {
+                        guard let quantityType = HKObjectType.quantityType(forIdentifier: self.activity.typeIdentifier) else {
                             fatalError("Unable to create a Quantity Type")
                         }
 

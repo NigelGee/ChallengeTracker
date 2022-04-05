@@ -8,38 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-
-    /// Store the target goal to User Defaults
-    @AppStorage("enteredGoal") var enteredGoal = 0.0
-
-    /// Store the activity type to User Defaults
-    @AppStorage("activity") var activity = Activity.distance
-    /// Store the type of distance measurement to User Defaults
-    @AppStorage("distanceType") var distanceType = DistanceType.miles
-
     @StateObject var vm = ViewModel()
-
-    /// Calculate the target goal by number of days in the month
-    var goalPerDay: Double {
-        let date = Date.now
-        let endDateOfMonth = date.endDateOfMonth
-        let daysInMonth = endDateOfMonth.dayNumber
-        return enteredGoal / Double(daysInMonth)
-    }
-
-    var goalToDate: Double {
-        goalPerDay * Double(Date.now.dayNumber)
-    }
-
-    var progressState: ProgressState {
-        if vm.sumDataSets > enteredGoal {
-            return .completed
-        } else if vm.sumDataSets > goalPerDay {
-            return .doneAhead
-        } else {
-            return .doneBehind
-        }
-    }
 
     var body: some View {
         NavigationView {
@@ -47,32 +16,32 @@ struct ContentView: View {
                 Button {
                     vm.showingSettings = true
                 } label: {
-                    Text(activity.rawValue.capitalized)
+                    Text(vm.activity.rawValue.capitalized)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 5)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(activity.color)
+                .tint(vm.activity.color)
                 .padding(.horizontal)
 
                 Spacer()
                 ScrollView(showsIndicators: false) {
                     VStack {
-                        RingProgressView(enteredGoal: enteredGoal,
+                        RingProgressView(enteredGoal: vm.enteredGoal,
                                          amountDone: vm.sumDataSets)
                         .frame(height: 230)
                         .padding(.top)
 
                         ActivityTextView(dataSets: vm.dataSets,
-                                         enteredGoal: enteredGoal,
-                                         progressState: progressState)
+                                         enteredGoal: vm.enteredGoal,
+                                         progressState: vm.progressState)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
                             .frame(width: 260)
 
                         BarChartView(dataSets: vm.dataSets,
-                                     enteredGoal: enteredGoal)
+                                     enteredGoal: vm.enteredGoal)
                             .frame(height: 230)
                             .padding()
                             .background(.ultraThickMaterial)
@@ -81,12 +50,12 @@ struct ContentView: View {
                                 vm.showingDetails = true
                             }
                             .accessibilityElement()
-                            .accessibilityLabel("chart of \(activity.rawValue)")
+                            .accessibilityLabel("chart of \(vm.activity.rawValue)")
                             .accessibilityChartDescriptor(self)
                             .accessibilityAddTraits(.isButton)
                             .sheet(isPresented: $vm.showingDetails) {
                                 ListDataView(dataSets: vm.dataSets,
-                                             goalPerDay: goalPerDay)
+                                             goalPerDay: vm.goalPerDay)
                             }
 
                         Group {
@@ -103,41 +72,28 @@ struct ContentView: View {
 
                 Spacer()
 
-                Button("Refresh") {
-                    vm.getHealthData(for: activity, in: distanceType)
-                }
+                Button("Refresh", action: vm.getHealthData)
                 .buttonStyle(.bordered)
                 .padding(.bottom)
             }
             .navigationTitle("\(Date.now, format: .dateTime.month(.wide).year())")
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button {
-                        vm.shareResult(enteredGoal: enteredGoal,
-                                       activity: activity,
-                                       progressState: progressState,
-                                       distanceType: distanceType)
+                        vm.shareResult(enteredGoal: vm.enteredGoal,
+                                       activity: vm.activity,
+                                       progressState: vm.progressState,
+                                       distanceType: vm.distanceType)
                     } label: {
                         Label("Share", systemImage: "square.and.arrow.up")
                     }
                     .disabled(vm.dataSets.isEmpty)
                 }
             }
-            .onAppear {
-                if enteredGoal.isZero {
-                    vm.showingSettings = true
-                }
-                vm.getHealthData(for: activity, in: distanceType)
-            }
-            .onChange(of: activity) { _ in
-                vm.getHealthData(for: activity, in: distanceType)
-            }
-            .onChange(of: distanceType) { _ in
-                vm.getHealthData(for: activity, in: distanceType)
-            }
-            .onChange(of: enteredGoal) { _ in
-                vm.getHealthData(for: activity, in: distanceType)
-            }
+            .onAppear(perform: vm.checkStatus)
+            .onChange(of: vm.activity) { _ in vm.getHealthData() }
+            .onChange(of: vm.distanceType) { _ in vm.getHealthData() }
+            .onChange(of: vm.enteredGoal) { _ in vm.getHealthData() }
             .alert("Error", isPresented: $vm.showingErrorAlert) {
                 Button("OK") { }
             } message: {
