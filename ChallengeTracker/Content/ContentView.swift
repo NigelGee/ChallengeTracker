@@ -71,10 +71,6 @@ struct ContentView: View {
                 .emptyState(of: vm.dataSets, emptyContent: ProgressView.init)
 
                 Spacer()
-
-                Button("Refresh", action: vm.getHealthData)
-                .buttonStyle(.bordered)
-                .padding(.bottom)
             }
             .navigationTitle("\(Date.now, format: .dateTime.month(.wide).year())")
             .toolbar {
@@ -88,6 +84,14 @@ struct ContentView: View {
                         Label("Share", systemImage: "square.and.arrow.up")
                     }
                     .disabled(vm.dataSets.isEmpty)
+                }
+
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        vm.getHealthData()
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.counterclockwise")
+                    }
                 }
             }
             .onAppear(perform: vm.checkStatus)

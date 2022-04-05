@@ -44,17 +44,19 @@ struct RingProgressView: View {
             .foregroundColor(activity.color.opacity(0.7))
             .font(.system(size: 30, weight: .bold, design: .rounded))
 
-            /// background ring
-            RingView(amount: enteredGoal, color: activity.color.opacity(0.1))
-
-            /// which ring is above which ring
-            if aheadOfDailyGoal {
-                RingView(amount: doneAmount, color: activity.color)
-                RingView(amount: goalToDate, color: .black.opacity(0.4))
-            } else {
-                RingView(amount: goalToDate, color: activity.color.opacity(0.4))
-                RingView(amount: doneAmount, color: activity.color)
+            Group {
+                /// which ring is above which ring
+                if aheadOfDailyGoal {
+                    RingView(amount: doneAmount, color: activity.color)
+                    RingView(amount: goalToDate, color: .black.opacity(0.4))
+                } else {
+                    RingView(amount: goalToDate, color: activity.color.opacity(0.4))
+                    RingView(amount: doneAmount, color: activity.color)
+                }
             }
+            .background(
+                RingView(amount: enteredGoal, color: activity.color.opacity(0.1))
+            )
         }
     }
 
