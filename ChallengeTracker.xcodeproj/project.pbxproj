@@ -11,6 +11,8 @@
 		8B2F75CE27E25CC800154E82 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CD27E25CC800154E82 /* BarChartView.swift */; };
 		8B2F75D027E265BE00154E82 /* ListDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CF27E265BE00154E82 /* ListDataView.swift */; };
 		8B4769FF27E46F57001122C9 /* ActivityTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4769FE27E46F57001122C9 /* ActivityTextView.swift */; };
+		8B67800F27FCFCCB008E3301 /* CaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67800E27FCFCCB008E3301 /* CaptionView.swift */; };
+		8B67801127FD971F008E3301 /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67801027FD971F008E3301 /* AlertItem.swift */; };
 		8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E650A27EAAEBF00004694 /* SettingsView.swift */; };
 		8B6E656227EF8B8D00004694 /* UIWindow-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E656127EF8B8D00004694 /* UIWindow-Extension.swift */; };
 		8B6E658027F0BAD000004694 /* Chart-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E657F27F0BAD000004694 /* Chart-Extension.swift */; };
@@ -38,6 +40,8 @@
 		8B2F75CF27E265BE00154E82 /* ListDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataView.swift; sourceTree = "<group>"; };
 		8B2F75D527E288B500154E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8B4769FE27E46F57001122C9 /* ActivityTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTextView.swift; sourceTree = "<group>"; };
+		8B67800E27FCFCCB008E3301 /* CaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionView.swift; sourceTree = "<group>"; };
+		8B67801027FD971F008E3301 /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		8B6E650A27EAAEBF00004694 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8B6E656127EF8B8D00004694 /* UIWindow-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow-Extension.swift"; sourceTree = "<group>"; };
 		8B6E657F27F0BAD000004694 /* Chart-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chart-Extension.swift"; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 				8BC0F48527E22E9300BCA513 /* ContentView.swift */,
 				8BC0F4A327E2415200BCA513 /* ContentViewModel.swift */,
 				8B4769FE27E46F57001122C9 /* ActivityTextView.swift */,
+				8B67800E27FCFCCB008E3301 /* CaptionView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 				8BC0F49D27E2359100BCA513 /* Activity.swift */,
 				8BC878B927E579A1004CA2F1 /* ProgressState.swift */,
 				8BAFF06827F4B8FA00EAF97C /* DistanceType.swift */,
+				8B67801027FD971F008E3301 /* AlertItem.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -253,7 +259,9 @@
 				8B2F75D027E265BE00154E82 /* ListDataView.swift in Sources */,
 				8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */,
 				8BC0F4AB27E2542700BCA513 /* RingProgressView.swift in Sources */,
+				8B67800F27FCFCCB008E3301 /* CaptionView.swift in Sources */,
 				8B6E658027F0BAD000004694 /* Chart-Extension.swift in Sources */,
+				8B67801127FD971F008E3301 /* AlertItem.swift in Sources */,
 				8BC0F49E27E2359100BCA513 /* Activity.swift in Sources */,
 				8B6E656227EF8B8D00004694 /* UIWindow-Extension.swift in Sources */,
 				8BC0F48627E22E9300BCA513 /* ContentView.swift in Sources */,

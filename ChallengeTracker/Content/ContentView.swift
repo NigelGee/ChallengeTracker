@@ -25,6 +25,7 @@ struct ContentView: View {
                 .padding(.horizontal)
 
                 Spacer()
+                
                 ScrollView(showsIndicators: false) {
                     VStack {
                         RingProgressView(enteredGoal: vm.enteredGoal,
@@ -58,13 +59,7 @@ struct ContentView: View {
                                              goalPerDay: vm.goalPerDay)
                             }
 
-                        Group {
-                            Text("Tap on chart to show details")
-                                .accessibilityHidden(true)
-                            Text("Updated: \(Date.now, format: .dateTime)")
-                        }
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
+                        CaptionView()
 
                     }
                 }
@@ -74,39 +69,17 @@ struct ContentView: View {
             }
             .navigationTitle("\(Date.now, format: .dateTime.month(.wide).year())")
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button {
-                        vm.shareResult(enteredGoal: vm.enteredGoal,
-                                       activity: vm.activity,
-                                       progressState: vm.progressState,
-                                       distanceType: vm.distanceType)
-                    } label: {
-                        Label("Share", systemImage: "square.and.arrow.up")
-                    }
-                    .disabled(vm.dataSets.isEmpty)
-                }
-
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {
-                        vm.getHealthData()
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.counterclockwise")
-                    }
-                }
+                vm.shareToolbarItem
+                vm.refreshToolbarItem
             }
             .onAppear(perform: vm.checkStatus)
             .onChange(of: vm.activity) { _ in vm.getHealthData() }
             .onChange(of: vm.distanceType) { _ in vm.getHealthData() }
             .onChange(of: vm.enteredGoal) { _ in vm.getHealthData() }
-            .alert("Error", isPresented: $vm.showingErrorAlert) {
+            .alert(vm.alertTitle, isPresented: $vm.showingAlert) {
                 Button("OK") { }
             } message: {
-                Text("Opps, error get health data, check that you allow the app to read the data.")
-            }
-            .alert("Error", isPresented: $vm.showingNoHealthAlert) {
-                Button("OK") { }
-            } message: {
-                Text("Device does not support health data. Please use another device.")
+                vm.alertMessage
             }
             .fullScreenCover(isPresented: $vm.showingSettings, content: SettingsView.init)
         }

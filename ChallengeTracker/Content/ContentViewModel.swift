@@ -27,10 +27,10 @@ extension ContentView {
 
         @Published var showingSettings = false
 
-        /// A Boolean to show alert if unable to access health data
-        @Published var showingErrorAlert = false
-
-        @Published var showingNoHealthAlert = false
+        /// A Boolean to show alert depending on which alert need to show
+        @Published var showingAlert = false
+        @Published var alertTitle = ""
+        @Published var alertMessage: Text?
 
         /// Calculate the sum of health data for a days
         var sumDataSets: Double {
@@ -155,13 +155,16 @@ extension ContentView {
 
                     } else if error != nil {
                         DispatchQueue.main.async {
-                            self.showingErrorAlert = true
+                            self.alertTitle = AlertItem.retrieveError.title
+                            self.alertMessage = AlertItem.retrieveError.message
+                            self.showingAlert = true
                         }
                     }
                 }
             } else {
-                print("No HealthKit data available")
-                self.showingNoHealthAlert = true
+                self.alertTitle = AlertItem.deviceError.title
+                self.alertMessage = AlertItem.deviceError.message
+                self.showingAlert = true
             }
         }
 
@@ -197,6 +200,32 @@ extension ContentView {
             let activityController = UIActivityViewController(activityItems: [resultString], applicationActivities: nil)
             UIWindow.key?.rootViewController!
                 .present(activityController, animated: true)
+        }
+
+        /// A button in the navigation bar to show share sheet
+        var shareToolbarItem: some ToolbarContent {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    self.shareResult(enteredGoal: self.enteredGoal,
+                                     activity: self.activity,
+                                     progressState: self.progressState,
+                                     distanceType: self.distanceType)
+                } label: {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                }
+                .disabled(dataSets.isEmpty)
+            }
+        }
+
+        /// A button in the navigation bar to refresh data
+        var refreshToolbarItem: some ToolbarContent {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    self.getHealthData()
+                } label: {
+                    Label("Refresh", systemImage: "arrow.counterclockwise")
+                }
+            }
         }
     }
 }
