@@ -17,7 +17,7 @@ struct RingProgressView: View {
     let amountDone: Double
 
     /// Store the activity type to User Defaults
-    @AppStorage("activity") var activity = Activity.distance
+    @AppStorage("activity") var activity = Activity.walking
     /// Store the type of distance measurement to User Defaults
     @AppStorage("distanceType") var distanceType = DistanceType.miles
 
@@ -107,7 +107,7 @@ struct RingProgressView: View {
 
 struct RingProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        RingProgressView(enteredGoal: 185.6, amountDone:48.1, activity: .distance)
+        RingProgressView(enteredGoal: 185.6, amountDone:48.1, activity: .walking)
             .preferredColorScheme(.dark)
     }
 }

@@ -9,43 +9,21 @@ import SwiftUI
 
 /// A view that user can set up the tracking challenge
 struct SettingsView: View {
-    /// Store the activity type to User Defaults
-    @AppStorage("activity") var activity = Activity.distance
-
-    /// Store the type of distance measurement to User Defaults
-    @AppStorage("distanceType") var distanceType = DistanceType.miles
-
-    /// A String of the unit type of activity
-    var unit: String {
-        if activity.unit == "mi" {
-            switch distanceType {
-            case .miles:
-                return "mi"
-            case .kilometers:
-                return "km"
-            }
-        }
-        return activity.unit
-    }
-
-    /// Store the target goal to User Defaults
-    @AppStorage("enteredGoal") var enteredGoal = 0.0
-    @AppStorage("inputAmount") var inputAmount = 0.0
-    @AppStorage("perDay") private var perDay = false
+    @StateObject var vm = ViewModel()
 
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
             Form {
-                Picker("Activity:", selection: $activity) {
+                Picker("Activity:", selection: $vm.activity) {
                     ForEach(Activity.allCases, id: \.self) {
                         Text($0.rawValue.capitalized)
                     }
                 }
 
-                if activity == .distance || activity == .wheelchair || activity == .cycling {
-                    Picker("Distance Type", selection: $distanceType) {
+                if vm.isDistanceActivity {
+                    Picker("Distance Type", selection: $vm.distanceType) {
                         ForEach(DistanceType.allCases, id:\.self) {
                             Text($0.rawValue.capitalized)
                         }
@@ -59,23 +37,36 @@ struct SettingsView: View {
                             .padding(.trailing)
                             .accessibilityHidden(true)
 
-                        TextField("Enter goal target", value: $inputAmount, format: .number)
+                        TextField("Enter goal target", value: $vm.inputAmount, format: .number)
                             .textFieldStyle(.roundedBorder)
                             .multilineTextAlignment(.center)
                             .accessibilityHint("Enter goal target")
                             .keyboardType(.decimalPad)
                     }
 
-                    Toggle("Per Day", isOn: $perDay)
+                    Toggle("Per Day", isOn: $vm.perDay)
                 }
 
                 Section {
                     HStack {
                         Text("Goal per Month:")
                         Spacer()
-                        Text("\(enteredGoal, specifier: activity.specifier) \(unit)")
+                        Text("\(vm.enteredGoal, specifier: vm.activity.specifier) \(vm.unit)")
                     }
                     .accessibilityElement(children: .combine)
+                }
+
+                Section {
+                    HStack {
+                        Spacer()
+                        Text("\(vm.suggestedGoal, specifier: vm.activity.specifier) \(vm.unit) \(vm.perDay ? "per day" : "per month")")
+                        Spacer()
+                    }
+                    .foregroundColor(.secondary)
+                } header: {
+                    Text("Suggested Goal")
+                } footer: {
+                    vm.footerText
                 }
             }
             .navigationTitle("Settings")
@@ -89,20 +80,20 @@ struct SettingsView: View {
                     }
                 }
             }
-            .onChange(of: perDay) { _ in
-                perMonth()
+            .onAppear(perform: vm.getHealthData)
+            .onChange(of: vm.perDay) { _ in
+                vm.perMonth()
+                vm.getHealthData()
             }
-            .onChange(of: inputAmount) { _ in
-                perMonth()
+            .onChange(of: vm.inputAmount) { _ in
+                vm.perMonth()
             }
-        }
-    }
-
-    func perMonth() {
-        if perDay {
-            enteredGoal = inputAmount * Double(Date.now.endDateOfMonth.dayNumber)
-        } else {
-            enteredGoal = inputAmount
+            .onChange(of: vm.distanceType) { _ in
+                vm.getHealthData()
+            }
+            .onChange(of: vm.activity) { _ in
+                vm.getHealthData()
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ struct BarChartView: View {
     let endDayOfMonth = Date.now.endDateOfMonth.dayNumber
 
     /// Store the activity type to User Defaults
-    @AppStorage("activity") var activity = Activity.distance
+    @AppStorage("activity") var activity = Activity.walking
     @AppStorage("distanceType") var distanceType = DistanceType.miles
 
     var goalPerDay: Double {
@@ -22,7 +22,7 @@ struct BarChartView: View {
     }
 
     var increment: Double {
-        if activity == .distance || activity == .wheelchair || activity == .cycling, distanceType == .kilometers {
+        if activity == .walking || activity == .wheelchair || activity == .cycling, distanceType == .kilometers {
             return activity.increment / 1.6
         }
 
@@ -78,7 +78,7 @@ struct BarChartView: View {
 
 struct BarChartView_Previews: PreviewProvider {
     static var previews: some View {
-        BarChartView(dataSets: DataSet.example, enteredGoal: 185.6, activity: .distance)
+        BarChartView(dataSets: DataSet.example, enteredGoal: 185.6, activity: .walking)
             .preferredColorScheme(.dark)
     }
 }

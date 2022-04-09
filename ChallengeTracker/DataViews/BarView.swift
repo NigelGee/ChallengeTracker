@@ -21,7 +21,7 @@ struct BarView: View {
 
 struct BarView_Previews: PreviewProvider {
     static var previews: some View {
-        BarView(doneAmount: 50, activity: .distance)
+        BarView(doneAmount: 50, activity: .walking)
             .preferredColorScheme(.dark)
     }
 }

@@ -1,75 +1,89 @@
 //
-//  ContentViewModel.swift
+//  SettingsViewModel.swift
 //  ChallengeTracker
 //
-//  Created by Nigel Gee on 16/03/2022.
+//  Created by Nigel Gee on 08/04/2022.
 //
 
 import HealthKit
 import SwiftUI
 
-extension ContentView {
-
-    /// View Model for Content View
+extension SettingsView {
     class ViewModel: ObservableObject {
-        /// Store the target goal to User Defaults
-        @AppStorage("enteredGoal") var enteredGoal = 0.0
         /// Store the activity type to User Defaults
         @AppStorage("activity") var activity = Activity.walking
+
         /// Store the type of distance measurement to User Defaults
         @AppStorage("distanceType") var distanceType = DistanceType.miles
-        
-        /// An Obervered object for health data
-        @Published var dataSets = [DataSet]()
 
-        /// A Boolean to show details of heath data
-        @Published var showingDetails = false
+        /// Store the target goal to User Defaults
+        @AppStorage("enteredGoal") var enteredGoal = 0.0
+        @AppStorage("inputAmount") var inputAmount = 0.0
+        @AppStorage("perDay") var perDay = false
 
-        @Published var showingSettings = false
+//        @Published var dataSets = [DataSet]()
+        @Published var suggestedGoal = 0.0
 
         /// A Boolean to show alert depending on which alert need to show
         @Published var showingAlert = false
         @Published var alertTitle = ""
         @Published var alertMessage: Text?
 
-        /// Calculate the sum of health data for a days
-        var sumDataSets: Double {
-            dataSets.map { $0.value }.reduce(0, +)
+        /// an enum to describe the status of getting the data and calculating a goal amount
+        private enum Status {
+            case loading, noValues, hasValues
         }
 
-        /// Calculate the target goal by number of days in the month
-        var goalPerDay: Double {
-            let date = Date.now
-            let endDateOfMonth = date.endDateOfMonth
-            let daysInMonth = endDateOfMonth.dayNumber
-            return enteredGoal / Double(daysInMonth)
+        private var status = Status.loading
+
+//        /// Calculate the sum of health data for a days
+//        var sumDataSets: Double {
+//            dataSets.map { $0.value }.reduce(0, +)
+//        }
+
+        /// A String of the unit type of activity
+        var unit: String {
+            if activity.unit == "mi" {
+                switch distanceType {
+                case .miles:
+                    return "mi"
+                case .kilometers:
+                    return "km"
+                }
+            }
+            return activity.unit
         }
 
-        var goalToDate: Double {
-            goalPerDay * Double(Date.now.dayNumber)
+        /// If activity has miles or kilometre returns true
+        var isDistanceActivity: Bool {
+            activity == .walking || activity == .wheelchair || activity == .cycling
         }
 
-        var progressState: ProgressState {
-            if sumDataSets > enteredGoal {
-                return .completed
-            } else if sumDataSets > (goalPerDay * Double(Date.now.dayNumber)) {
-                return .doneAhead
+        var footerText: Text {
+            switch status {
+            case .loading:
+                return Text("Collecting data and calculating a suggested goal.")
+            case .noValues:
+                return Text("Unable to calculate a goal as no \(activity.rawValue.capitalized) amounts have been done in the previous month. Use a device (eg Apple Watch or similar) or an app that save records to the Health app to be able to calculate a suggested goal next month.")
+            case .hasValues:
+                return Text("Your goal target based on the \(activity.rawValue.capitalized) amounts of the previous month.")
+            }
+        }
+
+        /// Calculate a day goal to monthly goal
+        func perMonth() {
+            if perDay {
+                enteredGoal = inputAmount * Double(Date.now.endDateOfMonth.dayNumber)
             } else {
-                return .doneBehind
+                enteredGoal = inputAmount
             }
-        }
-
-        func checkStatus() {
-            if enteredGoal.isZero {
-                showingSettings = true
-            }
-            getHealthData()
         }
 
         /// A method to get health data
         func getHealthData() {
             let healthStore = HKHealthStore()
-            dataSets.removeAll(keepingCapacity: true)
+            suggestedGoal = 0
+            var dataSets = [DataSet]()
 
             var unit: HKUnit
 
@@ -111,8 +125,8 @@ extension ContentView {
                             fatalError("Unable to create a valid date from the given components")
                         }
 
-                        let endDate = Date.now
-                        let startDate = endDate.startDateOfMonth
+                        let endDate = Date.now.endDateOfPreviousMonth
+                        let startDate = Date.now.startDateOfPreviousMonth
 
                         var interval = DateComponents()
                         interval.day = 1
@@ -138,13 +152,19 @@ extension ContentView {
                                     let value = quantity.doubleValue(for: unit)
 
                                     let dataSet = DataSet(date: date, value: value)
-                                    DispatchQueue.main.async {
-                                        self.dataSets.append(dataSet)
-                                    }
+                                    dataSets.append(dataSet)
                                 } else {
                                     let dataSet = DataSet(date: date, value: 0.0)
-                                    DispatchQueue.main.async {
-                                        self.dataSets.append(dataSet)
+                                    dataSets.append(dataSet)
+                                }
+
+                                DispatchQueue.main.async {
+                                    let sumOfGoal = dataSets.map { $0.value }.reduce(0, +)
+                                    self.suggestedGoal = sumOfGoal * 1.05
+                                    if self.suggestedGoal > 0 {
+                                        self.status = .hasValues
+                                    } else {
+                                        self.status = .noValues
                                     }
                                 }
                             }
@@ -164,66 +184,6 @@ extension ContentView {
                 self.alertTitle = AlertItem.deviceError.title
                 self.alertMessage = AlertItem.deviceError.message
                 self.showingAlert = true
-            }
-        }
-
-        /// a method for share sheet
-        /// - Parameters:
-        ///   - enteredGoal: the entered goal target
-        ///   - activity: the type of activity
-        ///   - progressState: progress of the amount above/behind/completed
-        func shareResult(enteredGoal: Double, activity: Activity, progressState: ProgressState, distanceType: DistanceType) {
-            var unit: String {
-                if activity.unit == "mi" {
-                    switch distanceType {
-                    case .miles:
-                        return "mi"
-                    case .kilometers:
-                        return "km"
-                    }
-                }
-                return activity.unit
-            }
-
-            let result = Int((sumDataSets / enteredGoal * 100)).formatted(.percent)
-            var resultString = ""
-            switch progressState {
-            case .doneAhead:
-                resultString = "My \(activity.rawValue.capitalized) activity this month: I am beating the daily average with \(result) of \(enteredGoal) \(unit). #ChallengeTracker"
-            case .doneBehind:
-                resultString = "My \(activity.rawValue.capitalized) activity this month: I have done \(result) of \(enteredGoal) \(unit). #ChallengeTracker"
-            case .completed:
-                resultString = "I completed this month goal for \(activity.rawValue.capitalized) of \(enteredGoal) \(unit). #ChallengeTracker"
-            }
-
-            let activityController = UIActivityViewController(activityItems: [resultString], applicationActivities: nil)
-            UIWindow.key?.rootViewController!
-                .present(activityController, animated: true)
-        }
-
-        /// A button in the navigation bar to show share sheet
-        var shareToolbarItem: some ToolbarContent {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    self.shareResult(enteredGoal: self.enteredGoal,
-                                     activity: self.activity,
-                                     progressState: self.progressState,
-                                     distanceType: self.distanceType)
-                } label: {
-                    Label("Share", systemImage: "square.and.arrow.up")
-                }
-                .disabled(dataSets.isEmpty)
-            }
-        }
-
-        /// A button in the navigation bar to refresh data
-        var refreshToolbarItem: some ToolbarContent {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    self.getHealthData()
-                } label: {
-                    Label("Refresh", systemImage: "arrow.counterclockwise")
-                }
             }
         }
     }

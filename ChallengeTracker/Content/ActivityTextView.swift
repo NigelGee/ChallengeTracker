@@ -14,7 +14,7 @@ struct ActivityTextView: View {
     let progressState: ProgressState
     
     /// Store the activity type to User Defaults
-    @AppStorage("activity") var activity = Activity.distance
+    @AppStorage("activity") var activity = Activity.walking
     /// Store the type of distance measurement to User Defaults
     @AppStorage("distanceType") var distanceType = DistanceType.miles
 
@@ -67,6 +67,6 @@ struct ActivityTextView: View {
 
 struct ActivityTextView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityTextView(dataSets: DataSet.example, enteredGoal: 185.6, progressState: .doneBehind, activity: .distance)
+        ActivityTextView(dataSets: DataSet.example, enteredGoal: 185.6, progressState: .doneBehind, activity: .walking)
     }
 }

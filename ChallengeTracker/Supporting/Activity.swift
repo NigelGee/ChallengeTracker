@@ -12,7 +12,7 @@ import HealthKit
 enum Activity: String, CaseIterable {
     case move
     case exercise
-    case distance = "Walking + Running Distance"
+    case walking = "Walking + Running Distance"
     case wheelchair = "Wheelchair Distance"
     case cycling = "Cycling Distance"
     case swimming = "Swimming Distance"
@@ -24,7 +24,7 @@ enum Activity: String, CaseIterable {
             return .move
         case .exercise:
             return .exercise
-        case .distance, .wheelchair, .cycling:
+        case .walking, .wheelchair, .cycling:
             return .distance
         case .swimming:
             return .swimming
@@ -38,7 +38,7 @@ enum Activity: String, CaseIterable {
             return "kCal"
         case .exercise:
             return "min"
-        case .distance, .wheelchair, .cycling:
+        case .walking, .wheelchair, .cycling:
             return "mi"
         case .swimming:
             return "m"
@@ -51,7 +51,7 @@ enum Activity: String, CaseIterable {
         switch self {
         case .move, .exercise:
             return "%.f"
-        case .distance, .wheelchair, .cycling, .swimming:
+        case .walking, .wheelchair, .cycling, .swimming:
             return "%.1f"
         }
     }
@@ -63,7 +63,7 @@ enum Activity: String, CaseIterable {
             return 0.1
         case .exercise:
             return 1
-        case .distance, .wheelchair:
+        case .walking, .wheelchair:
             return 10
         case .cycling:
             return 5
@@ -78,7 +78,7 @@ enum Activity: String, CaseIterable {
             return .activeEnergyBurned
         case .exercise:
             return .appleExerciseTime
-        case .distance:
+        case .walking:
             return .distanceWalkingRunning
         case .wheelchair:
             return .distanceWheelchair

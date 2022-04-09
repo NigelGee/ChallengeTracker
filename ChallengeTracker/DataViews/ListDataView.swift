@@ -13,7 +13,7 @@ struct ListDataView: View {
     let goalPerDay: Double
     
     /// Store the activity type to User Defaults
-    @AppStorage("activity") var activity = Activity.distance
+    @AppStorage("activity") var activity = Activity.walking
 
     /// Store the type of distance measurement to User Defaults
     @AppStorage("distanceType") var distanceType = DistanceType.miles
@@ -48,7 +48,7 @@ struct ListDataView: View {
 
 struct ListDataView_Previews: PreviewProvider {
     static var previews: some View {
-        ListDataView(dataSets: DataSet.example, goalPerDay: 6.1, activity: .distance)
+        ListDataView(dataSets: DataSet.example, goalPerDay: 6.1, activity: .walking)
             .preferredColorScheme(.dark)
     }
 }

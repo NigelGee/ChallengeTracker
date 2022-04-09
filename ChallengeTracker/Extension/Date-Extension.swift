@@ -18,10 +18,26 @@ extension Date {
         return date
     }
 
+    var startDateOfPreviousMonth: Date {
+        let calendar = Calendar.current
+        guard let date = calendar.date(byAdding: DateComponents(month: -1), to: self.startDateOfMonth) else {
+            fatalError("Unable to get end date from date")
+        }
+        return date
+    }
+
     /// Calculates the first Date of month
     var endDateOfMonth: Date {
         let calendar = Calendar.current
         guard let date = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: self.startDateOfMonth) else {
+            fatalError("Unable to get end date from date")
+        }
+        return date
+    }
+
+    var endDateOfPreviousMonth: Date {
+        let calendar = Calendar.current
+        guard let date = calendar.date(byAdding: DateComponents(day: -1), to: self.startDateOfMonth) else {
             fatalError("Unable to get end date from date")
         }
         return date
