@@ -83,6 +83,8 @@ extension SettingsView {
         func getHealthData() {
             let healthStore = HKHealthStore()
             suggestedGoal = 0
+            status = .loading
+            
             var dataSets = [DataSet]()
 
             var unit: HKUnit
