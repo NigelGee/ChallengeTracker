@@ -21,7 +21,8 @@ extension SettingsView {
         @AppStorage("inputAmount") var inputAmount = 0.0
         @AppStorage("perDay") var perDay = false
 
-//        @Published var dataSets = [DataSet]()
+
+        /// Store the goals for new month
         @Published var newMonthlyGoal = 0.0
         @Published var newDailyGoal = 0.0
 
@@ -36,6 +37,8 @@ extension SettingsView {
         }
 
         private var status = Status.loading
+
+        /// Shows which suggested goal either perDay or perMonth
         var suggestedGoal: Double {
             if perDay {
                 return newDailyGoal
@@ -60,6 +63,8 @@ extension SettingsView {
             activity == .walking || activity == .wheelchair || activity == .cycling
         }
 
+
+        /// Section Footer Text depending on the status of getting data
         var footerText: Text {
             switch status {
             case .loading:
