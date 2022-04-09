@@ -22,7 +22,8 @@ extension SettingsView {
         @AppStorage("perDay") var perDay = false
 
 //        @Published var dataSets = [DataSet]()
-        @Published var suggestedGoal = 0.0
+        @Published var newMonthlyGoal = 0.0
+        @Published var newDailyGoal = 0.0
 
         /// A Boolean to show alert depending on which alert need to show
         @Published var showingAlert = false
@@ -35,12 +36,12 @@ extension SettingsView {
         }
 
         private var status = Status.loading
-
-//        /// Calculate the sum of health data for a days
-//        var sumDataSets: Double {
-//            dataSets.map { $0.value }.reduce(0, +)
-//        }
-
+        var suggestedGoal: Double {
+            if perDay {
+                return newDailyGoal
+            }
+            return newMonthlyGoal
+        }
         /// A String of the unit type of activity
         var unit: String {
             if activity.unit == "mi" {
@@ -82,9 +83,10 @@ extension SettingsView {
         /// A method to get health data
         func getHealthData() {
             let healthStore = HKHealthStore()
-            suggestedGoal = 0
+            newMonthlyGoal = 0
+            newDailyGoal = 0
             status = .loading
-            
+
             var dataSets = [DataSet]()
 
             var unit: HKUnit
@@ -162,8 +164,11 @@ extension SettingsView {
 
                                 DispatchQueue.main.async {
                                     let sumOfGoal = dataSets.map { $0.value }.reduce(0, +)
-                                    self.suggestedGoal = sumOfGoal * 1.05
-                                    if self.suggestedGoal > 0 {
+                                    let previousAmountPerDay = sumOfGoal / Double(endDate.dayNumber)
+                                    self.newDailyGoal = previousAmountPerDay * 1.05
+                                    self.newMonthlyGoal = self.newDailyGoal * Double(Date.now.endDateOfMonth.dayNumber)
+
+                                    if self.newMonthlyGoal > 0 {
                                         self.status = .hasValues
                                     } else {
                                         self.status = .noValues
