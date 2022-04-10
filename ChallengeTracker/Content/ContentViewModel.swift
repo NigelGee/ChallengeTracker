@@ -185,8 +185,16 @@ extension ContentView {
                 return activity.unit
             }
 
-            let result = Int((sumDataSets / enteredGoal * 100)).formatted(.percent)
+            var result = ""
+
+            if enteredGoal == 0 {
+                result = "0%"
+            } else {
+                result = Int((sumDataSets / enteredGoal * 100)).formatted(.percent)
+            }
+            
             var resultString = ""
+
             switch progressState {
             case .doneAhead:
                 resultString = "My \(activity.rawValue.capitalized) activity this month: I am beating the daily average with \(result) of \(enteredGoal) \(unit). #ChallengeTracker"

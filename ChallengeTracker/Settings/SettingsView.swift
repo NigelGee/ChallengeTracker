@@ -10,6 +10,7 @@ import SwiftUI
 /// A view that user can set up the tracking challenge
 struct SettingsView: View {
     @StateObject var vm = ViewModel()
+    @Environment(\.dynamicTypeSize) var typeSize
 
     @Environment(\.dismiss) var dismiss
 
@@ -48,12 +49,20 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    HStack {
-                        Text("Goal per Month:")
-                        Spacer()
-                        Text("\(vm.enteredGoal, specifier: vm.activity.specifier) \(vm.unit)")
+                    if typeSize > .xxLarge {
+                        VStack(alignment: .leading) {
+                            Text("Goal per Month:")
+                            Text("\(vm.enteredGoal, specifier: vm.activity.specifier) \(vm.unit)")
+                        }
+                        .accessibilityElement(children: .combine)
+                    } else {
+                        HStack {
+                            Text("Goal per Month:")
+                            Spacer()
+                            Text("\(vm.enteredGoal, specifier: vm.activity.specifier) \(vm.unit)")
+                        }
+                        .accessibilityElement(children: .combine)
                     }
-                    .accessibilityElement(children: .combine)
                 }
 
                 Section {

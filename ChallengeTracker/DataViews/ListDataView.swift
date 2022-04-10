@@ -11,6 +11,8 @@ import SwiftUI
 struct ListDataView: View {
     let dataSets: [DataSet]
     let goalPerDay: Double
+
+    @Environment(\.dynamicTypeSize) var typeSize
     
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.walking
@@ -34,13 +36,21 @@ struct ListDataView: View {
     var body: some View {
         VStack {
             List(dataSets.reversed()) { dataSet in
-                HStack {
-                    Text(dataSet.date, style: .date)
-                    Spacer()
-                    Text("\(dataSet.value, specifier: activity.specifier) \(unit)")
-                        .foregroundColor(dataSet.value >= goalPerDay ? .primary : .secondary)
+                if typeSize > .xxLarge {
+                    VStack(alignment: .leading) {
+                        Text(dataSet.date, style: .date)
+                        Text("\(dataSet.value, specifier: activity.specifier) \(unit)")
+                            .foregroundColor(dataSet.value >= goalPerDay ? .primary : .secondary)
+                    }
+                } else {
+                    HStack {
+                        Text(dataSet.date, style: .date)
+                        Spacer()
+                        Text("\(dataSet.value, specifier: activity.specifier) \(unit)")
+                            .foregroundColor(dataSet.value >= goalPerDay ? .primary : .secondary)
+                    }
+                    .accessibilityElement(children: .combine)
                 }
-                .accessibilityElement(children: .combine)
             }
         }
     }
