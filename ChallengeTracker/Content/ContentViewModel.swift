@@ -37,7 +37,7 @@ extension ContentView {
             dataSets.map { $0.value }.reduce(0, +)
         }
 
-        /// Calculate the target goal by number of days in the month
+        /// Calculate the target goal by number of days in the month.
         var goalPerDay: Double {
             let date = Date.now
             let endDateOfMonth = date.endDateOfMonth
@@ -45,10 +45,12 @@ extension ContentView {
             return enteredGoal / Double(daysInMonth)
         }
 
+        /// The cumulative goal per day from first of month to present date.
         var goalToDate: Double {
             goalPerDay * Double(Date.now.dayNumber)
         }
 
+        /// If status of amount done to goal amount either pre day or total
         var progressState: ProgressState {
             if sumDataSets > enteredGoal {
                 return .completed
@@ -59,6 +61,7 @@ extension ContentView {
             }
         }
 
+        /// Check to see if Goal has been set if not show SettingView first.
         func checkStatus() {
             if enteredGoal.isZero {
                 showingSettings = true
@@ -185,11 +188,9 @@ extension ContentView {
                 return activity.unit
             }
 
-            var result = ""
+            var result = "0%"
 
-            if enteredGoal == 0 {
-                result = "0%"
-            } else {
+            if enteredGoal.isNotZero {
                 result = Int((sumDataSets / enteredGoal * 100)).formatted(.percent)
             }
             

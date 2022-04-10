@@ -9,7 +9,6 @@ import SwiftUI
 
 /// A view that compiles the all the Rings views required
 struct RingProgressView: View {
-
     /// The target Goal
     let enteredGoal: Double
 

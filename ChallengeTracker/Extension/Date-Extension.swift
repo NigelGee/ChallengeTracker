@@ -18,6 +18,7 @@ extension Date {
         return date
     }
 
+    /// Calculates the first Date of preceding month
     var startDateOfPreviousMonth: Date {
         let calendar = Calendar.current
         guard let date = calendar.date(byAdding: DateComponents(month: -1), to: self.startDateOfMonth) else {
@@ -26,7 +27,7 @@ extension Date {
         return date
     }
 
-    /// Calculates the first Date of month
+    /// Calculates the end Date of month
     var endDateOfMonth: Date {
         let calendar = Calendar.current
         guard let date = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: self.startDateOfMonth) else {
@@ -35,6 +36,7 @@ extension Date {
         return date
     }
 
+    /// Calculates the end Date of preceding month
     var endDateOfPreviousMonth: Date {
         let calendar = Calendar.current
         guard let date = calendar.date(byAdding: DateComponents(day: -1), to: self.startDateOfMonth) else {
@@ -53,15 +55,12 @@ extension Date {
         return day
     }
 
+
+    /// Used for Preview
+    /// - Parameter number: number of days from date
+    /// - Returns: Date of that number
     func nextDay(from number: Int) -> Date {
         guard let date = Calendar.current.date(byAdding: .day, value: number, to: self.startDateOfMonth) else {
-            fatalError("Unable to get next day from date")
-        }
-        return date
-    }
-
-    func nextDay() -> Date {
-        guard let date = Calendar.current.date(byAdding: .day, value: 1, to: self) else {
             fatalError("Unable to get next day from date")
         }
         return date

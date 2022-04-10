@@ -9,7 +9,6 @@ import SwiftUI
 
 /// A view for single ring view
 struct RingView: View {
-
     /// Require a Double 0 to 1 for the trim of circle
     let amount: Double
 

@@ -73,7 +73,7 @@ struct ContentView: View {
                 vm.refreshToolbarItem
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                vm.getHealthData()
+                vm.checkStatus()
             }
             .onChange(of: vm.activity) { _ in vm.getHealthData() }
             .onChange(of: vm.distanceType) { _ in vm.getHealthData() }

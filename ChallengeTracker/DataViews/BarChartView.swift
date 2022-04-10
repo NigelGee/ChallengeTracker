@@ -17,29 +17,6 @@ struct BarChartView: View {
     @AppStorage("activity") var activity = Activity.walking
     @AppStorage("distanceType") var distanceType = DistanceType.miles
 
-    var goalPerDay: Double {
-        enteredGoal / Double(endDayOfMonth)
-    }
-
-    var increment: Double {
-        if activity == .walking || activity == .wheelchair || activity == .cycling, distanceType == .kilometers {
-            return activity.increment / 1.6
-        }
-
-        return activity.increment
-    }
-
-    var centreHeight: Double {
-        let maxDataSet = dataSets.max()
-        let maxValue = maxDataSet?.value ?? 0.0
-        return maxValue
-    }
-
-    /// Calculates the bottom of the graph depending on the size of the maximum height of data
-    var baseHeight: Double {
-        centreHeight * increment / 2
-    }
-
     var body: some View {
         VStack(spacing: 2) {
             ZStack {
@@ -73,6 +50,29 @@ struct BarChartView: View {
             }
             .offset(x: 0, y: 110 - ((centreHeight / 2) * increment))
         }
+    }
+
+    var goalPerDay: Double {
+        enteredGoal / Double(endDayOfMonth)
+    }
+
+    var increment: Double {
+        if activity == .walking || activity == .wheelchair || activity == .cycling, distanceType == .kilometers {
+            return activity.increment / 1.6
+        }
+
+        return activity.increment
+    }
+
+    var centreHeight: Double {
+        let maxDataSet = dataSets.max()
+        let maxValue = maxDataSet?.value ?? 0.0
+        return maxValue
+    }
+
+    /// Calculates the bottom of the graph depending on the size of the maximum height of data
+    var baseHeight: Double {
+        centreHeight * increment / 2
     }
 }
 

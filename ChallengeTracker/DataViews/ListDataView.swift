@@ -20,19 +20,6 @@ struct ListDataView: View {
     /// Store the type of distance measurement to User Defaults
     @AppStorage("distanceType") var distanceType = DistanceType.miles
 
-    /// A String of the unit type of activity
-    var unit: String {
-        if activity.unit == "mi" {
-            switch distanceType {
-            case .miles:
-                return "mi"
-            case .kilometers:
-                return "km"
-            }
-        }
-        return activity.unit
-    }
-
     var body: some View {
         VStack {
             List(dataSets.reversed()) { dataSet in
@@ -42,6 +29,7 @@ struct ListDataView: View {
                         Text("\(dataSet.value, specifier: activity.specifier) \(unit)")
                             .foregroundColor(dataSet.value >= goalPerDay ? .primary : .secondary)
                     }
+                    .accessibilityElement(children: .combine)
                 } else {
                     HStack {
                         Text(dataSet.date, style: .date)
@@ -53,6 +41,19 @@ struct ListDataView: View {
                 }
             }
         }
+    }
+
+    /// A String of the unit type of activity
+    var unit: String {
+        if activity.unit == "mi" {
+            switch distanceType {
+            case .miles:
+                return "mi"
+            case .kilometers:
+                return "km"
+            }
+        }
+        return activity.unit
     }
 }
 

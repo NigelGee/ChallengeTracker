@@ -22,7 +22,6 @@ fileprivate struct EmptyStateViewModifier<EmptyContent: View>: ViewModifier {
 }
 
 extension View {
-
     /// A modifier to show a view if there is no data
     /// - Parameters:
     ///   - collection: A collection of data that may be nil
