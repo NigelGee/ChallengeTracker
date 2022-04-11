@@ -12,60 +12,66 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                Button {
-                    vm.showingSettings = true
-                } label: {
-                    Text(vm.activity.rawValue.capitalized)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 5)
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(vm.activity.color)
-                .padding(.horizontal)
-
-                Spacer()
-                
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        RingProgressView(enteredGoal: vm.enteredGoal,
-                                         amountDone: vm.sumDataSets)
-                        .frame(height: 230)
-                        .padding(.top)
-
-                        ActivityTextView(dataSets: vm.dataSets,
-                                         enteredGoal: vm.enteredGoal,
-                                         progressState: vm.progressState)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .frame(width: 260)
-
-                        BarChartView(dataSets: vm.dataSets,
-                                     enteredGoal: vm.enteredGoal)
-                            .frame(height: 230)
-                            .padding()
-                            .background(.ultraThickMaterial)
-                            .cornerRadius(10)
-                            .onTapGesture {
-                                vm.showingDetails = true
-                            }
-                            .accessibilityElement()
-                            .accessibilityLabel("chart of \(vm.activity.rawValue)")
-                            .accessibilityChartDescriptor(self)
-                            .accessibilityAddTraits(.isButton)
-                            .sheet(isPresented: $vm.showingDetails) {
-                                ListDataView(dataSets: vm.dataSets,
-                                             goalPerDay: vm.goalPerDay)
-                            }
-
-                        CaptionView()
-
+            ZStack {
+                VStack {
+                    Button {
+                        vm.showingSettings = true
+                    } label: {
+                        Text(vm.activity.rawValue.capitalized)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 5)
                     }
-                }
-                .emptyState(of: vm.dataSets, emptyContent: ProgressView.init)
+                    .buttonStyle(.borderedProminent)
+                    .tint(vm.activity.color)
+                    .padding(.horizontal)
 
-                Spacer()
+                    Spacer()
+
+                    ScrollView(showsIndicators: false) {
+                        VStack {
+                            RingProgressView(enteredGoal: vm.enteredGoal,
+                                             amountDone: vm.sumDataSets)
+                            .frame(height: 230)
+                            .padding(.top)
+
+                            ActivityTextView(dataSets: vm.dataSets,
+                                             enteredGoal: vm.enteredGoal,
+                                             progressState: vm.progressState)
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                                .frame(width: 260)
+
+                            BarChartView(dataSets: vm.dataSets,
+                                         enteredGoal: vm.enteredGoal)
+                                .frame(height: 230)
+                                .padding()
+                                .background(.ultraThickMaterial)
+                                .cornerRadius(10)
+                                .onTapGesture {
+                                    vm.showingDetails = true
+                                }
+                                .accessibilityElement()
+                                .accessibilityLabel("chart of \(vm.activity.rawValue)")
+                                .accessibilityChartDescriptor(self)
+                                .accessibilityAddTraits(.isButton)
+                                .sheet(isPresented: $vm.showingDetails) {
+                                    ListDataView(dataSets: vm.dataSets,
+                                                 goalPerDay: vm.goalPerDay)
+                                }
+
+                            CaptionView()
+
+                        }
+                    }
+    //                .emptyState(of: vm.dataSets, emptyContent: ProgressView.init)
+
+                    Spacer()
+                }
+
+                if vm.dataSets.isEmpty {
+                    LoadingView(activity: vm.activity)
+                }
             }
             .navigationTitle("\(Date.now, format: .dateTime.month(.wide).year())")
             .toolbar {

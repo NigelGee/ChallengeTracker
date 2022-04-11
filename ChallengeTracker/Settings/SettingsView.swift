@@ -71,6 +71,7 @@ struct SettingsView: View {
                         Text("\(vm.suggestedGoal, specifier: vm.activity.specifier) \(vm.unit) \(vm.perDay ? "per day" : "per month")")
                         Spacer()
                     }
+                    .animation(.easeInOut, value: vm.suggestedGoal)
                     .foregroundColor(.secondary)
                 } header: {
                     Text("Suggested Goal")

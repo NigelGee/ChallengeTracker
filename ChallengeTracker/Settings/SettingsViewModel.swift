@@ -40,10 +40,12 @@ extension SettingsView {
 
         /// Shows which suggested goal either perDay or perMonth
         var suggestedGoal: Double {
-            if perDay {
-                return newDailyGoal
+            withAnimation {
+                if perDay {
+                    return newDailyGoal
+                }
+                return newMonthlyGoal
             }
-            return newMonthlyGoal
         }
         /// A String of the unit type of activity
         var unit: String {
@@ -170,7 +172,7 @@ extension SettingsView {
                                 DispatchQueue.main.async {
                                     let sumOfGoal = dataSets.map { $0.value }.reduce(0, +)
                                     let previousAmountPerDay = sumOfGoal / Double(endDate.dayNumber)
-                                    self.newDailyGoal = previousAmountPerDay * 1.05
+                                    self.newDailyGoal = previousAmountPerDay * 1.07
                                     self.newMonthlyGoal = self.newDailyGoal * Double(Date.now.endDateOfMonth.dayNumber)
 
                                     if self.newMonthlyGoal > 0 {

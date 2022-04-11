@@ -142,7 +142,9 @@ extension ContentView {
 
                                     let dataSet = DataSet(date: date, value: value)
                                     DispatchQueue.main.async {
-                                        self.dataSets.append(dataSet)
+                                        withAnimation {
+                                            self.dataSets.append(dataSet)
+                                        }
                                     }
                                 } else {
                                     let dataSet = DataSet(date: date, value: 0.0)

@@ -74,12 +74,14 @@ struct RingProgressView: View {
 
     /// Calculates the amount of target to date as 0 to 1
     var goalToDate: Double {
-        let date = Date.now
-        let endDateOfMonth = date.endDateOfMonth
-        let daysInMonth = endDateOfMonth.dayNumber
-        let today = date.dayNumber
-        let amountPerDay = enteredGoal / Double(daysInMonth)
-        return (amountPerDay * Double(today) / enteredGoal)
+        withAnimation {
+            let date = Date.now
+            let endDateOfMonth = date.endDateOfMonth
+            let daysInMonth = endDateOfMonth.dayNumber
+            let today = date.dayNumber
+            let amountPerDay = enteredGoal / Double(daysInMonth)
+            return (amountPerDay * Double(today) / enteredGoal)
+        }
     }
 
     ///  Calculates the amount done from health data as 0 to 1

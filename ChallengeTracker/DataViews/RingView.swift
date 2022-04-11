@@ -22,6 +22,7 @@ struct RingView: View {
             .rotationEffect(.degrees(-90))
             .padding()
             .frame(maxWidth: .infinity)
+            .animation(.linear(duration: 2), value: amount)
     }
 }
 
