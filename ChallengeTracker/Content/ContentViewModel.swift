@@ -19,7 +19,7 @@ extension ContentView {
         /// Store the type of distance measurement to User Defaults
         @AppStorage("distanceType") var distanceType = DistanceType.miles
         
-        /// An Obervered object for health data
+        /// An observable object for health data
         @Published var dataSets = [DataSet]()
 
         /// A Boolean to show details of heath data

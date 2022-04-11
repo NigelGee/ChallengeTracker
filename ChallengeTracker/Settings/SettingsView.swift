@@ -103,6 +103,11 @@ struct SettingsView: View {
             .onChange(of: vm.activity) { _ in
                 vm.getHealthData()
             }
+            .alert(vm.alertTitle, isPresented: $vm.showingAlert) {
+                Button("OK") { }
+            } message: {
+                vm.alertMessage
+            }
         }
     }
 }
