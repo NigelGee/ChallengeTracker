@@ -11,6 +11,7 @@ import SwiftUI
 struct RingProgressView: View {
     /// The target Goal
     let enteredGoal: Double
+    let goalToDate: Double
 
     ///  The amount done from heath data
     let amountDone: Double
@@ -72,18 +73,6 @@ struct RingProgressView: View {
         return activity.unit
     }
 
-    /// Calculates the amount of target to date as 0 to 1
-    var goalToDate: Double {
-        withAnimation {
-            let date = Date.now
-            let endDateOfMonth = date.endDateOfMonth
-            let daysInMonth = endDateOfMonth.dayNumber
-            let today = date.dayNumber
-            let amountPerDay = enteredGoal / Double(daysInMonth)
-            return (amountPerDay * Double(today) / enteredGoal)
-        }
-    }
-
     ///  Calculates the amount done from health data as 0 to 1
     var doneAmount: Double {
         amountDone / enteredGoal
@@ -108,7 +97,7 @@ struct RingProgressView: View {
 
 struct RingProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        RingProgressView(enteredGoal: 185.6, amountDone:48.1, activity: .walking)
+        RingProgressView(enteredGoal: 185.6, goalToDate: 100, amountDone:48.1, activity: .walking)
             .preferredColorScheme(.dark)
     }
 }

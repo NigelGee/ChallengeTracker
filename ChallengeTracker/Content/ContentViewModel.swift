@@ -21,6 +21,7 @@ extension ContentView {
         
         /// An observable object for health data
         @Published var dataSets = [DataSet]()
+        @Published var animatedGoal = 0.0
 
         /// A Boolean to show details of heath data
         @Published var showingDetails = false
@@ -45,9 +46,12 @@ extension ContentView {
             return enteredGoal / Double(daysInMonth)
         }
 
-        /// The cumulative goal per day from first of month to present date.
+        /// Calculates the amount of target to date as 0 to 1
         var goalToDate: Double {
-            goalPerDay * Double(Date.now.dayNumber)
+            withAnimation {
+                let today = Date.now.dayNumber
+                return (goalPerDay * Double(today) / enteredGoal)
+            }
         }
 
         /// If status of amount done to goal amount either pre day or total
@@ -73,6 +77,7 @@ extension ContentView {
         func getHealthData() {
             let healthStore = HKHealthStore()
             dataSets.removeAll(keepingCapacity: true)
+            animatedGoal = 0
 
             var unit: HKUnit
 
@@ -150,6 +155,12 @@ extension ContentView {
                                     let dataSet = DataSet(date: date, value: 0.0)
                                     DispatchQueue.main.async {
                                         self.dataSets.append(dataSet)
+                                    }
+                                }
+
+                                DispatchQueue.main.async {
+                                    withAnimation {
+                                        self.animatedGoal = self.goalToDate
                                     }
                                 }
                             }
