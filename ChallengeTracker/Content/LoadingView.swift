@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Loading View overlay while getting health data
 struct LoadingView: View {
     let activity: Activity
 
