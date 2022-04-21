@@ -95,6 +95,8 @@ extension ContentView {
                 }
             case .swimming:
                 unit = .meter()
+            case .steps:
+                unit = .count()
             }
 
             if HKHealthStore.isHealthDataAvailable() {
@@ -104,7 +106,8 @@ extension ContentView {
                     HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!,
                     HKObjectType.quantityType(forIdentifier: .distanceWheelchair)!,
                     HKObjectType.quantityType(forIdentifier: .distanceCycling)!,
-                    HKObjectType.quantityType(forIdentifier: .distanceSwimming)!
+                    HKObjectType.quantityType(forIdentifier: .distanceSwimming)!,
+                    HKObjectType.quantityType(forIdentifier: .stepCount)!
                 ])
 
                 healthStore.requestAuthorization(toShare: [], read: readData) { success, error in

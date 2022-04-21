@@ -16,6 +16,7 @@ enum Activity: String, CaseIterable {
     case wheelchair = "Wheelchair Distance"
     case cycling = "Cycling Distance"
     case swimming = "Swimming Distance"
+    case steps
 
     /// A color depend on activity
     var color: Color {
@@ -24,7 +25,7 @@ enum Activity: String, CaseIterable {
             return .move
         case .exercise:
             return .exercise
-        case .walking, .wheelchair, .cycling:
+        case .walking, .wheelchair, .cycling, .steps:
             return .distance
         case .swimming:
             return .swimming
@@ -42,14 +43,15 @@ enum Activity: String, CaseIterable {
             return "mi"
         case .swimming:
             return "m"
-
+        case .steps:
+            return "steps"
         }
     }
 
     /// A String of number of decimal place depend on type of activity
     var specifier: String {
         switch self {
-        case .move, .exercise:
+        case .move, .exercise, .steps:
             return "%.f"
         case .walking, .wheelchair, .cycling, .swimming:
             return "%.1f"
@@ -59,7 +61,7 @@ enum Activity: String, CaseIterable {
     /// A Double so to change the height of `BarView`
     var increment: Double {
         switch self {
-        case.move:
+        case.move, .swimming:
             return 0.1
         case .exercise:
             return 1
@@ -67,8 +69,8 @@ enum Activity: String, CaseIterable {
             return 10
         case .cycling:
             return 5
-        case .swimming:
-            return 0.1
+        case .steps:
+            return 0.01
         }
     }
 
@@ -86,6 +88,8 @@ enum Activity: String, CaseIterable {
             return .distanceCycling
         case .swimming:
             return .distanceSwimming
+        case .steps:
+            return .stepCount
         }
     }
 }

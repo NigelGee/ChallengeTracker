@@ -81,6 +81,10 @@ struct ContentView: View {
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                 vm.checkStatus()
             }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+                vm.animatedGoal = 0
+                vm.dataSets.removeAll()
+            }
             .onChange(of: vm.activity) { _ in vm.getHealthData() }
             .onChange(of: vm.distanceType) { _ in vm.getHealthData() }
             .onChange(of: vm.enteredGoal) { _ in vm.getHealthData() }
