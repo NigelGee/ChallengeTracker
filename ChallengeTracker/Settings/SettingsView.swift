@@ -91,19 +91,6 @@ struct SettingsView: View {
                 }
             }
             .onAppear(perform: vm.getHealthData)
-            .onChange(of: vm.perDay) { _ in
-                vm.perMonth()
-                vm.getHealthData()
-            }
-            .onChange(of: vm.inputAmount) { _ in
-                vm.perMonth()
-            }
-            .onChange(of: vm.distanceType) { _ in
-                vm.getHealthData()
-            }
-            .onChange(of: vm.activity) { _ in
-                vm.getHealthData()
-            }
             .alert(vm.alertTitle, isPresented: $vm.showingAlert) {
                 Button("OK") { }
             } message: {

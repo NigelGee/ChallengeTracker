@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var vm = ViewModel()
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
         NavigationView {
@@ -78,16 +79,14 @@ struct ContentView: View {
                 vm.shareToolbarItem
                 vm.refreshToolbarItem
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                vm.checkStatus()
+            .onChange(of: scenePhase) { phase in
+                if phase == .active {
+                    vm.checkStatus()
+                } else if phase == .background {
+                    vm.animatedGoal = 0
+                    vm.dataSets.removeAll()
+                }
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
-                vm.animatedGoal = 0
-                vm.dataSets.removeAll()
-            }
-            .onChange(of: vm.activity) { _ in vm.getHealthData() }
-            .onChange(of: vm.distanceType) { _ in vm.getHealthData() }
-            .onChange(of: vm.enteredGoal) { _ in vm.getHealthData() }
             .alert(vm.alertTitle, isPresented: $vm.showingAlert) {
                 Button("OK") { }
             } message: {

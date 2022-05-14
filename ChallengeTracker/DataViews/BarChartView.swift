@@ -13,6 +13,8 @@ struct BarChartView: View {
     let enteredGoal: Double
     let endDayOfMonth = Date.now.endDateOfMonth.dayNumber
 
+    let emptyDayValue = 5.0
+
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.walking
     @AppStorage("distanceType") var distanceType = DistanceType.miles
@@ -34,21 +36,21 @@ struct BarChartView: View {
                 HStack(alignment: .bottom, spacing: 4) {
                     ForEach(0..<endDayOfMonth, id: \.self) { index in
                         if index < dataSets.count {
-                            if dataSets[index].value == 0 {
-                                BarView(doneAmount: 5, activity: activity)
+                            if dataSets[index].value < (emptyDayValue / increment) {
+                                BarView(doneAmount: emptyDayValue, activity: activity)
                             } else {
                                 BarView(
                                     doneAmount: dataSets[index].value * increment,
                                     activity: activity)
                             }
                         } else {
-                            BarView(doneAmount: 5, activity: activity)
+                            BarView(doneAmount: emptyDayValue, activity: activity)
                         }
                     }
                 }
 
             }
-            .offset(x: 0, y: 110 - ((centreHeight / 2) * increment))
+            .offset(x: 0, y: 110 - ((maxHeight / 2) * increment))
         }
     }
 
@@ -64,7 +66,7 @@ struct BarChartView: View {
         return activity.increment
     }
 
-    var centreHeight: Double {
+    var maxHeight: Double {
         let maxDataSet = dataSets.max()
         let maxValue = maxDataSet?.value ?? 0.0
         return maxValue
@@ -72,7 +74,7 @@ struct BarChartView: View {
 
     /// Calculates the bottom of the graph depending on the size of the maximum height of data
     var baseHeight: Double {
-        centreHeight * increment / 2
+        maxHeight * increment / 2
     }
 }
 

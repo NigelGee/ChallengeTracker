@@ -13,11 +13,23 @@ extension ContentView {
     /// View Model for Content View
     class ViewModel: ObservableObject {
         /// Store the target goal to User Defaults
-        @AppStorage("enteredGoal") var enteredGoal = 0.0
+        @AppStorage("enteredGoal") var enteredGoal = 0.0 {
+            didSet {
+                getHealthData()
+            }
+        }
         /// Store the activity type to User Defaults
-        @AppStorage("activity") var activity = Activity.walking
+        @AppStorage("activity") var activity = Activity.walking {
+            didSet {
+                getHealthData()
+            }
+        }
         /// Store the type of distance measurement to User Defaults
-        @AppStorage("distanceType") var distanceType = DistanceType.miles
+        @AppStorage("distanceType") var distanceType = DistanceType.miles {
+            didSet {
+                getHealthData()
+            }
+        }
         
         /// An observable object for health data
         @Published var dataSets = [DataSet]()
@@ -107,7 +119,7 @@ extension ContentView {
                     HKObjectType.quantityType(forIdentifier: .distanceWheelchair)!,
                     HKObjectType.quantityType(forIdentifier: .distanceCycling)!,
                     HKObjectType.quantityType(forIdentifier: .distanceSwimming)!,
-                    HKObjectType.quantityType(forIdentifier: .stepCount)!
+                    HKObjectType.quantityType(forIdentifier: .stepCount)!,
                 ])
 
                 healthStore.requestAuthorization(toShare: [], read: readData) { success, error in

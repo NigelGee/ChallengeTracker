@@ -16,9 +16,10 @@ struct LoadingView: View {
             ProgressView()
                 .padding()
             Text("Loading…")
+                .font(.system(size: 18))
+                .fontWeight(.bold)
                 .padding()
         }
-        .font(.headline)
         .foregroundColor(activity.color)
         .frame(width: 150, height: 150)
         .background(.ultraThickMaterial)

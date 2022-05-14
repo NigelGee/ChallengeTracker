@@ -11,15 +11,33 @@ import SwiftUI
 extension SettingsView {
     class ViewModel: ObservableObject {
         /// Store the activity type to User Defaults
-        @AppStorage("activity") var activity = Activity.walking
+        @AppStorage("activity") var activity = Activity.walking {
+            didSet {
+                getHealthData()
+            }
+        }
 
         /// Store the type of distance measurement to User Defaults
-        @AppStorage("distanceType") var distanceType = DistanceType.miles
+        @AppStorage("distanceType") var distanceType = DistanceType.miles {
+            didSet {
+                getHealthData()
+            }
+        }
 
         /// Store the target goal to User Defaults
         @AppStorage("enteredGoal") var enteredGoal = 0.0
-        @AppStorage("inputAmount") var inputAmount = 0.0
-        @AppStorage("perDay") var perDay = false
+        @AppStorage("inputAmount") var inputAmount = 0.0 {
+            didSet {
+                perMonth()
+            }
+        }
+        
+        @AppStorage("perDay") var perDay = false {
+            didSet {
+                perMonth()
+                getHealthData()
+            }
+        }
 
 
         /// Store the goals for new month
