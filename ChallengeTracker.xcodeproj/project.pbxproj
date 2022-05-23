@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B1FF104283B5AF60089D129 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1FF103283B5AF60089D129 /* AppStore.swift */; };
 		8B2F75CC27E25C3400154E82 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CB27E25C3400154E82 /* BarView.swift */; };
 		8B2F75CE27E25CC800154E82 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CD27E25CC800154E82 /* BarChartView.swift */; };
 		8B2F75D027E265BE00154E82 /* ListDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F75CF27E265BE00154E82 /* ListDataView.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B1FF103283B5AF60089D129 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		8B2F75CB27E25C3400154E82 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		8B2F75CD27E25CC800154E82 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		8B2F75CF27E265BE00154E82 /* ListDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				8BC878B927E579A1004CA2F1 /* ProgressState.swift */,
 				8BAFF06827F4B8FA00EAF97C /* DistanceType.swift */,
 				8B67801027FD971F008E3301 /* AlertItem.swift */,
+				8B1FF103283B5AF60089D129 /* AppStore.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				8B2F75D027E265BE00154E82 /* ListDataView.swift in Sources */,
 				8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */,
 				8BC0F4AB27E2542700BCA513 /* RingProgressView.swift in Sources */,
+				8B1FF104283B5AF60089D129 /* AppStore.swift in Sources */,
 				8B602E0B2804E14400D9BAD9 /* LoadingView.swift in Sources */,
 				8B67800F27FCFCCB008E3301 /* CaptionView.swift in Sources */,
 				8B6E658027F0BAD000004694 /* Chart-Extension.swift in Sources */,
@@ -410,7 +414,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChallengeTracker/ChallengeTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ChallengeTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = 5SYZQ266RF;
 				ENABLE_PREVIEWS = YES;
@@ -428,7 +432,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.uk.theappforest.ChallengeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -444,7 +448,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChallengeTracker/ChallengeTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ChallengeTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = 5SYZQ266RF;
 				ENABLE_PREVIEWS = YES;
@@ -462,7 +466,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.uk.theappforest.ChallengeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

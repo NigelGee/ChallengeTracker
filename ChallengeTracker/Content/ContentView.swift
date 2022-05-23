@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var vm = ViewModel()
+    @StateObject var appStore = AppStore()
     @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
@@ -79,6 +80,7 @@ struct ContentView: View {
                 vm.shareToolbarItem
                 vm.refreshToolbarItem
             }
+            .onAppear(perform: appStore.check)
             .onChange(of: scenePhase) { phase in
                 if phase == .active {
                     vm.checkStatus()
@@ -93,6 +95,9 @@ struct ContentView: View {
                 vm.alertMessage
             }
             .fullScreenCover(isPresented: $vm.showingSettings, content: SettingsView.init)
+            .appStoreOverlay(isPresented: $appStore.showingOverlay) {
+                appStore.configuration
+            }
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import HealthKit
 import SwiftUI
+import StoreKit
 
 extension ContentView {
 
