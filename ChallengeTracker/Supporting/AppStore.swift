@@ -10,19 +10,30 @@ import StoreKit
 
 class AppStore: ObservableObject {
     var threshold = 10
-    @AppStorage("runsSinceLastRequest") var runsSinceLastRequest = 0
+    @AppStorage("runsSinceLastRequest") var runsSinceLastRequest = 1
+    @AppStorage("version") var version = ""
 
     @Published var showingOverlay = false
     let configuration = SKOverlay.AppConfiguration(appIdentifier: "1465159349", position: .bottom)
 
     func check() {
-        runsSinceLastRequest += 1
+        let appBuild = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+        let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let currentVersion = "v\(appVersion) b\(appBuild)"
 
+        guard version == currentVersion else {
+            runsSinceLastRequest = 1
+            version = currentVersion
+            return
+        }
+
+        runsSinceLastRequest += 1
+        print(runsSinceLastRequest)
         if runsSinceLastRequest >= threshold {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 SKStoreReviewController.requestReview(in: scene)
             }
-        } else if runsSinceLastRequest >= threshold - 3 && runsSinceLastRequest <= threshold {
+        } else if runsSinceLastRequest == threshold - 3 {
             showingOverlay = true
         }
     }

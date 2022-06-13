@@ -80,10 +80,10 @@ struct ContentView: View {
                 vm.shareToolbarItem
                 vm.refreshToolbarItem
             }
-            .onAppear(perform: appStore.check)
             .onChange(of: scenePhase) { phase in
                 if phase == .active {
                     vm.checkStatus()
+                    appStore.check()
                 } else if phase == .background {
                     vm.animatedGoal = 0
                     vm.dataSets.removeAll()
