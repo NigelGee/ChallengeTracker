@@ -8,13 +8,18 @@
 import SwiftUI
 
 /// A view that compiles the all the Rings views required
-struct RingProgressView: View {
+struct RingProgressView: View, Animatable {
     /// The target Goal
     let enteredGoal: Double
     let goalToDate: Double
 
     ///  The amount done from heath data
-    let amountDone: Double
+    var amountDone: Double
+
+    var animatableData: Double {
+        get { amountDone }
+        set { amountDone = newValue }
+    }
 
     /// Store the activity type to User Defaults
     @AppStorage("activity") var activity = Activity.walking
