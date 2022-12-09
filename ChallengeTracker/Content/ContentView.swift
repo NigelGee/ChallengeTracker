@@ -45,8 +45,15 @@ struct ContentView: View {
                                 .multilineTextAlignment(.center)
                                 .frame(width: 260)
 
-                            BarChartView(dataSets: vm.dataSets,
-                                         enteredGoal: vm.enteredGoal)
+                            if #available(iOS 16, *) {
+                                ChartView(dataSets: vm.dataSets, enteredGoal: vm.enteredGoal)
+                                    .padding(.horizontal)
+                                    .onTapGesture {
+                                        vm.showingDetails = true
+                                    }
+                            } else {
+                                BarChartView(dataSets: vm.dataSets,
+                                             enteredGoal: vm.enteredGoal)
                                 .frame(height: 230)
                                 .padding()
                                 .background(.ultraThickMaterial)
@@ -58,13 +65,14 @@ struct ContentView: View {
                                 .accessibilityLabel("chart of \(vm.activity.rawValue)")
                                 .accessibilityChartDescriptor(self)
                                 .accessibilityAddTraits(.isButton)
-                                .sheet(isPresented: $vm.showingDetails) {
-                                    ListDataView(dataSets: vm.dataSets,
-                                                 goalPerDay: vm.goalPerDay)
-                                }
+                            }
 
                             CaptionView()
 
+                        }
+                        .sheet(isPresented: $vm.showingDetails) {
+                            ListDataView(dataSets: vm.dataSets,
+                                         goalPerDay: vm.goalPerDay)
                         }
                     }
 

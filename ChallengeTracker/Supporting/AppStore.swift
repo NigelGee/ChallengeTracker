@@ -28,8 +28,7 @@ class AppStore: ObservableObject {
         }
 
         runsSinceLastRequest += 1
-        print(runsSinceLastRequest)
-        if runsSinceLastRequest >= threshold {
+        if runsSinceLastRequest.isMultiple(of: 10)  {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 SKStoreReviewController.requestReview(in: scene)
             }
