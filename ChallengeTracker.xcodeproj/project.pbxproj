@@ -15,6 +15,7 @@
 		8B602DD32800EA7000D9BAD9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B602DD22800EA6F00D9BAD9 /* SettingsViewModel.swift */; };
 		8B602DEF28038B5000D9BAD9 /* IsNotZero-FloatingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B602DEE28038B5000D9BAD9 /* IsNotZero-FloatingPoint.swift */; };
 		8B602E0B2804E14400D9BAD9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B602E0A2804E14400D9BAD9 /* LoadingView.swift */; };
+		8B65484F2974920300A5A92B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 8B65484E2974920300A5A92B /* Localizable.stringsdict */; };
 		8B67800F27FCFCCB008E3301 /* CaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67800E27FCFCCB008E3301 /* CaptionView.swift */; };
 		8B67801127FD971F008E3301 /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67801027FD971F008E3301 /* AlertItem.swift */; };
 		8B6E650B27EAAEBF00004694 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6E650A27EAAEBF00004694 /* SettingsView.swift */; };
@@ -49,6 +50,7 @@
 		8B602DD22800EA6F00D9BAD9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		8B602DEE28038B5000D9BAD9 /* IsNotZero-FloatingPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IsNotZero-FloatingPoint.swift"; sourceTree = "<group>"; };
 		8B602E0A2804E14400D9BAD9 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		8B65484E2974920300A5A92B /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		8B67800E27FCFCCB008E3301 /* CaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionView.swift; sourceTree = "<group>"; };
 		8B67801027FD971F008E3301 /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		8B6E650A27EAAEBF00004694 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				8BAFF06827F4B8FA00EAF97C /* DistanceType.swift */,
 				8B67801027FD971F008E3301 /* AlertItem.swift */,
 				8B1FF103283B5AF60089D129 /* AppStore.swift */,
+				8B65484E2974920300A5A92B /* Localizable.stringsdict */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BC0F49727E22FDF00BCA513 /* Colors.xcassets in Resources */,
+				8B65484F2974920300A5A92B /* Localizable.stringsdict in Resources */,
 				8BC0F48B27E22E9800BCA513 /* Preview Assets.xcassets in Resources */,
 				8BC0F48827E22E9800BCA513 /* Assets.xcassets in Resources */,
 			);
@@ -431,7 +435,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "The app need access to your health data so it can calculate your progress though out the month. We do not collect any data and is all kept on device.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app need access to your health data so it can calculate your progress though out the month. We do not collect any data and is all kept on device.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
@@ -440,7 +443,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = co.uk.theappforest.ChallengeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -465,7 +468,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "The app need access to your health data so it can calculate your progress though out the month. We do not collect any data and is all kept on device.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app need access to your health data so it can calculate your progress though out the month. We do not collect any data and is all kept on device.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
@@ -474,7 +476,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = co.uk.theappforest.ChallengeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

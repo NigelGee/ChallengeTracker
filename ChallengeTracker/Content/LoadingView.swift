@@ -14,6 +14,8 @@ struct LoadingView: View {
     var body: some View {
         VStack {
             ProgressView()
+                .tint(activity.color)
+                .scaleEffect(2.5)
                 .padding()
             Text("Loading…")
                 .font(.system(size: 18))
@@ -21,7 +23,8 @@ struct LoadingView: View {
                 .padding()
         }
         .foregroundColor(activity.color)
-        .frame(width: 150, height: 150)
+        .frame(maxWidth: .infinity)
+        .frame(height: 200)
         .background(.ultraThickMaterial)
         .cornerRadius(15)
 

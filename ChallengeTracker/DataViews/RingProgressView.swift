@@ -15,6 +15,7 @@ struct RingProgressView: View, Animatable {
 
     ///  The amount done from heath data
     var amountDone: Double
+    let numberGoalMonth: Int
 
     var animatableData: Double {
         get { amountDone }
@@ -25,6 +26,10 @@ struct RingProgressView: View, Animatable {
     @AppStorage("activity") var activity = Activity.walking
     /// Store the type of distance measurement to User Defaults
     @AppStorage("distanceType") var distanceType = DistanceType.miles
+
+    /// Store the variable to determine the number of goals reach in a month
+    @AppStorage("goalDays") var goalDays = 14
+    @AppStorage("displayGoalNumber") var displayGoalNumber = false
 
     var body: some View {
         ZStack {
@@ -38,9 +43,15 @@ struct RingProgressView: View, Animatable {
                     .accessibilityElement(children: .combine)
                 } else {
                     VStack {
-                        Text("\(amountDone, specifier: activity.specifier)")
-                        Text("of")
-                        Text("\(enteredGoal, specifier: activity.specifier)")
+                        if displayGoalNumber {
+                            Text("\(numberGoalMonth) days")
+                            Text("of")
+                            Text("\(goalDays) days")
+                        } else {
+                            Text("\(amountDone, specifier: activity.specifier)")
+                            Text("of")
+                            Text("\(enteredGoal, specifier: activity.specifier)")
+                        }
                     }
                     .accessibilityElement()
                     .accessibilityLabel(accessibilityLabel)
@@ -92,7 +103,9 @@ struct RingProgressView: View, Animatable {
     }
 
     var accessibilityLabel: Text {
-        if aheadOfDailyGoal {
+        if displayGoalNumber {
+            return Text("you done \(numberGoalMonth) of \(goalDays) days")
+        } else if aheadOfDailyGoal {
             return Text("you are ahead of daily goal, you have done \(amountDone, specifier: activity.specifier) of \(enteredGoal, specifier: activity.specifier) \(unit)")
         } else {
             return Text("you are behind of daily goal, you have done \(amountDone, specifier: activity.specifier) of \(enteredGoal, specifier: activity.specifier) \(unit)")
@@ -102,7 +115,11 @@ struct RingProgressView: View, Animatable {
 
 struct RingProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        RingProgressView(enteredGoal: 185.6, goalToDate: 100, amountDone:48.1, activity: .walking)
+        RingProgressView(enteredGoal: 185.6,
+                         goalToDate: 100,
+                         amountDone:48.1,
+                         numberGoalMonth: 1,
+                         activity: .walking)
             .preferredColorScheme(.dark)
     }
 }

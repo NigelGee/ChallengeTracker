@@ -20,7 +20,7 @@ struct ChartView: View {
     var body: some View {
         VStack {
             Chart {
-                ForEach(newDataSets) { dataSet in
+                ForEach(completeDataSets(from: dataSets)) { dataSet in
                     BarMark(
                         x: .value("Day", dataSet.date, unit: .day),
                         y: .value("Value", dataSet.value)
@@ -56,20 +56,23 @@ struct ChartView: View {
         return enteredGoal / Double(endDayOfMonth)
     }
 
-    var newDataSets: [DataSet] {
-        var data = dataSets // take a copy of the original array
-        let max = dataSets.max()?.value ?? 1 // find the maximum value
+    /// Get dateSets for every day of a month
+    /// - Parameter dataSets: original dataSets for HealthKit
+    /// - Returns: A array of DataSet for each day of month
+    func completeDataSets(from dataSets: [DataSet]) -> [DataSet] {
+        guard dataSets.isNotEmpty else { return [] }
 
-        if  dataSets.isNotEmpty { // bail out if original array is empty
-            // loop over the last number in array to the number of day in month
-            for i in dataSets.count...Date.now.endDateOfMonth.dayNumber {
-                // add new date and nominal value to array
-                let newDataSet = DataSet(date: Date.now.startDateOfMonth.nextDay(from: i), value: max * 0.02)
-                data.append(newDataSet)
-            }
+        let maxValue = dataSets.max()?.value ?? 1
+        let remainingDays = Date.now.remainingDaysInMonth
+
+        let newDataSet: [DataSet] = remainingDays.map {
+            DataSet(
+                date: Date.now.dayInSameMonth($0),
+                value: maxValue * 0.02)
+
         }
 
-        return data
+        return newDataSet + dataSets
     }
 }
 
@@ -77,7 +80,7 @@ struct ChartView: View {
 @available(iOS 16, *)
 struct ChartView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartView(dataSets: DataSet.example, enteredGoal: 185.6, activity: .walking)
+        ChartView(dataSets: DataSet.example, enteredGoal: 185.6)
             .preferredColorScheme(.dark)
     }
 }

@@ -65,4 +65,27 @@ extension Date {
         }
         return date
     }
+
+    /// Returns an array of day numbers for the rest of the date's month
+    /// An error returns an empty array
+    var remainingDaysInMonth: [Int] {
+        let calendar = Calendar.current
+        guard let maxDay = calendar.range(of: .day, in: .month, for: self)?.upperBound,
+              let currentDay = calendar.dateComponents([.day], from: self).day,
+              maxDay > currentDay + 1 else {
+            return []
+        }
+        
+        return Array((currentDay + 1)..<maxDay)
+    }
+
+    /// Calculates the date from a Int
+    /// - Parameter day: Int of day number
+    /// - Returns: A date with the given day number in the same month as the current date
+    func dayInSameMonth(_ day: Int) -> Date {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: self)
+        components.day = day
+        return calendar.date(from: components) ?? .now
+    }
 }

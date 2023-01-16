@@ -11,7 +11,6 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject var vm = ViewModel()
     @Environment(\.dynamicTypeSize) var typeSize
-
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -62,6 +61,20 @@ struct SettingsView: View {
                             Text("\(vm.enteredGoal, specifier: vm.activity.specifier) \(vm.unit)")
                         }
                         .accessibilityElement(children: .combine)
+                    }
+                }
+
+                Section {
+                    Toggle("Display Daily Goal/Day", isOn: $vm.displayGoalNumber.animation())
+
+                    if vm.displayGoalNumber {
+                        withAnimation {
+                            Picker("Number of Times in Month", selection: $vm.goalDays) {
+                                ForEach(1 ..< (Date.now.endDateOfMonth.dayNumber + 1), id: \.self) {
+                                    Text(String($0))
+                                }
+                            }
+                        }
                     }
                 }
 

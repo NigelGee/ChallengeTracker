@@ -50,7 +50,6 @@ struct ActivityTextView: View {
             let sumOfValue = values.reduce(0, +)
             return (enteredGoal - sumOfValue) / Double(daysInMonth - (date.dayNumber - 1))
         }
-
     }
 
     var body: some View {

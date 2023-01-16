@@ -31,6 +31,10 @@ extension ContentView {
                 getHealthData()
             }
         }
+
+        /// Store the variable to determine the number of goals reach in a month
+        @AppStorage("goalDays") var goalDays = 14
+        @AppStorage("displayGoalNumber") var displayGoalNumber = false
         
         /// An observable object for health data
         @Published var dataSets = [DataSet]()
@@ -76,6 +80,18 @@ extension ContentView {
             } else {
                 return .doneBehind
             }
+        }
+
+        /// Returns the number of days that the goal is reached
+        var numberGoalMonth: Int {
+            var totalDaysAchieved = 0
+            for data in dataSets {
+                if data.value >= goalPerDay {
+                    totalDaysAchieved += 1
+                }
+            }
+
+            return totalDaysAchieved
         }
 
         /// Check to see if Goal has been set if not show SettingView first.

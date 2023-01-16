@@ -33,7 +33,8 @@ struct ContentView: View {
                         VStack {
                             RingProgressView(enteredGoal: vm.enteredGoal,
                                              goalToDate: vm.animatedGoal,
-                                             amountDone: vm.sumDataSets)
+                                             amountDone: vm.sumDataSets,
+                                             numberGoalMonth: vm.numberGoalMonth)
                             .frame(height: 230)
                             .padding(.top)
 
