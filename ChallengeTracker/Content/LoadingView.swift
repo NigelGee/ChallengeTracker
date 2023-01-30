@@ -27,8 +27,7 @@ struct LoadingView: View {
         .frame(height: 200)
         .background(.ultraThickMaterial)
         .cornerRadius(15)
-        .padding(.horizontal, 20)
-
+        
     }
 }
 
