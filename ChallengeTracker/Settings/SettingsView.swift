@@ -40,7 +40,6 @@ struct SettingsView: View {
                         TextField("Enter goal target", value: $vm.inputAmount, format: .number)
                             .textFieldStyle(.roundedBorder)
                             .multilineTextAlignment(.center)
-                            .accessibilityHint("Enter goal target")
                             .keyboardType(.decimalPad)
                     }
 
@@ -65,16 +64,24 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Toggle("Display Daily Goal/Day", isOn: $vm.displayGoalNumber.animation())
+                    Toggle("Set How Many Daily Goal/Day", isOn: $vm.displayGoalNumber.animation())
 
                     if vm.displayGoalNumber {
-                        withAnimation {
-                            Picker("Number of Times in Month", selection: $vm.goalDays) {
-                                ForEach(1 ..< (Date.now.endDateOfMonth.dayNumber + 1), id: \.self) {
-                                    Text(String($0))
-                                }
+                        HStack {
+                            Text("Goal: ")
+                            TextField("Enter the amount", value: $vm.goalAmount, format: .number)
+                                .textFieldStyle(.roundedBorder)
+                                .multilineTextAlignment(.center)
+                                .keyboardType(.decimalPad)
+                        }
+
+                        Picker("Number of Times in Month", selection: $vm.goalDays) {
+                            ForEach(1 ..< (Date.now.endDateOfMonth.dayNumber + 1), id: \.self) {
+                                Text(String($0))
                             }
                         }
+
+                        Toggle("Double Goal Amount", isOn: $vm.doubleAmount)
                     }
                 }
 

@@ -35,6 +35,8 @@ extension ContentView {
         /// Store the variable to determine the number of goals reach in a month
         @AppStorage("goalDays") var goalDays = 14
         @AppStorage("displayGoalNumber") var displayGoalNumber = false
+        @AppStorage("goalAmount") var goalAmount = 0.0
+        @AppStorage("doubleAmount") var doubleAmount = false
         
         /// An observable object for health data
         @Published var dataSets = [DataSet]()
@@ -86,7 +88,7 @@ extension ContentView {
         var numberGoalMonth: Int {
             var totalDaysAchieved = 0
             for data in dataSets {
-                if data.value >= goalPerDay {
+                if data.value >= goalAmount * (doubleAmount ? 2 : 1) {
                     totalDaysAchieved += 1
                 }
             }

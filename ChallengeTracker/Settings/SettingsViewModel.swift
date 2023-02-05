@@ -42,6 +42,8 @@ extension SettingsView {
         /// Store the variable to determine the number of goals reach in a month
         @AppStorage("goalDays") var goalDays = 14
         @AppStorage("displayGoalNumber") var displayGoalNumber = false
+        @AppStorage("goalAmount") var goalAmount = 0.0
+        @AppStorage("doubleAmount") var doubleAmount = false
 
         /// Store the goals for new month
         @Published var newMonthlyGoal = 0.0

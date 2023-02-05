@@ -30,6 +30,8 @@ struct RingProgressView: View, Animatable {
     /// Store the variable to determine the number of goals reach in a month
     @AppStorage("goalDays") var goalDays = 14
     @AppStorage("displayGoalNumber") var displayGoalNumber = false
+    @AppStorage("goalAmount") var goalAmount = 0.0
+    @AppStorage("doubleAmount") var doubleAmount = false
 
     var body: some View {
         ZStack {
@@ -43,7 +45,7 @@ struct RingProgressView: View, Animatable {
                     .accessibilityElement(children: .combine)
                 } else {
                     VStack {
-                        if displayGoalNumber {
+                        if displayGoalNumber && numberGoalMonth < goalDays {
                             Text("\(numberGoalMonth) days")
                             Text("of")
                             Text("\(goalDays) days")
