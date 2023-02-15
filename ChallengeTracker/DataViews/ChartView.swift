@@ -17,9 +17,19 @@ struct ChartView: View {
     @AppStorage("activity") var activity = Activity.walking
     @AppStorage("distanceType") var distanceType = DistanceType.miles
 
+    @AppStorage("displayGoalNumber") var displayGoalNumber = false
+    @AppStorage("goalAmount") var goalAmount = 0.0
+
     var body: some View {
         VStack {
             Chart {
+                if displayGoalNumber {
+                    RuleMark(y: .value("Daily", goalAmount))
+                        .lineStyle(StrokeStyle(lineWidth: 3, dash: [3], dashPhase: 3))
+                        .foregroundStyle(Color.secondary)
+
+                }
+                
                 ForEach(completeDataSets(from: dataSets)) { dataSet in
                     BarMark(
                         x: .value("Day", dataSet.date, unit: .day),

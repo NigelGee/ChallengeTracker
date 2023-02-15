@@ -33,6 +33,20 @@ struct RingProgressView: View, Animatable {
     @AppStorage("goalAmount") var goalAmount = 0.0
     @AppStorage("doubleAmount") var doubleAmount = false
 
+    @State private var switchDisplay = true
+
+    var isShowingGoalNumber: Bool {
+        if displayGoalNumber && numberGoalMonth < goalDays {
+            if switchDisplay {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        return false
+    }
+
     var body: some View {
         ZStack {
             VStack {
@@ -45,7 +59,7 @@ struct RingProgressView: View, Animatable {
                     .accessibilityElement(children: .combine)
                 } else {
                     VStack {
-                        if displayGoalNumber && numberGoalMonth < goalDays {
+                        if isShowingGoalNumber {
                             Text("\(numberGoalMonth) days")
                             Text("of")
                             Text("\(goalDays) days")
@@ -53,6 +67,11 @@ struct RingProgressView: View, Animatable {
                             Text("\(amountDone, specifier: activity.specifier)")
                             Text("of")
                             Text("\(enteredGoal, specifier: activity.specifier)")
+                        }
+                    }
+                    .onTapGesture {
+                        if displayGoalNumber {
+                            switchDisplay.toggle()
                         }
                     }
                     .accessibilityElement()
