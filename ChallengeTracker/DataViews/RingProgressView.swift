@@ -76,6 +76,7 @@ struct RingProgressView: View, Animatable {
                     }
                     .accessibilityElement()
                     .accessibilityLabel(accessibilityLabel)
+                    .accessibilityHint(isShowingGoalNumber ? "isButton" : "")
                 }
             }
             .foregroundColor(activity.color.opacity(0.7))
@@ -124,7 +125,7 @@ struct RingProgressView: View, Animatable {
     }
 
     var accessibilityLabel: Text {
-        if displayGoalNumber {
+        if isShowingGoalNumber {
             return Text("you done \(numberGoalMonth) of \(goalDays) days")
         } else if aheadOfDailyGoal {
             return Text("you are ahead of daily goal, you have done \(amountDone, specifier: activity.specifier) of \(enteredGoal, specifier: activity.specifier) \(unit)")

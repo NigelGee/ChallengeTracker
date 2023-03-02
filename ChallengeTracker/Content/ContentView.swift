@@ -56,9 +56,9 @@ struct ContentView: View {
                                 BarChartView(dataSets: vm.dataSets,
                                              enteredGoal: vm.enteredGoal)
                                 .frame(height: 230)
-                                .padding()
+//                                .padding(.horizontal)
                                 .background(.ultraThickMaterial)
-                                .cornerRadius(10)
+//                                .cornerRadius(20)
                                 .onTapGesture {
                                     vm.showingDetails = true
                                 }
@@ -97,6 +97,9 @@ struct ContentView: View {
                     vm.animatedGoal = 0
                     vm.dataSets.removeAll()
                 }
+            }
+            .refreshable {
+                vm.getHealthData()
             }
             .alert(vm.alertTitle, isPresented: $vm.showingAlert) {
                 Button("OK") { }

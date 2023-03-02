@@ -19,12 +19,13 @@ struct ChartView: View {
 
     @AppStorage("displayGoalNumber") var displayGoalNumber = false
     @AppStorage("goalAmount") var goalAmount = 0.0
+    @AppStorage("doubleAmount") var doubleAmount = false
 
     var body: some View {
         VStack {
             Chart {
                 if displayGoalNumber {
-                    RuleMark(y: .value("Daily", goalAmount))
+                    RuleMark(y: .value("Daily", goalAmount * (doubleAmount ? 2 : 1)))
                         .lineStyle(StrokeStyle(lineWidth: 3, dash: [3], dashPhase: 3))
                         .foregroundStyle(Color.secondary)
 
@@ -53,7 +54,6 @@ struct ChartView: View {
             .chartXAxis(.hidden)
             .chartPlotStyle { plotContent in
                 plotContent
-                    .padding(.top, 30)
                     .padding([.leading, .vertical])
                     .background(.ultraThickMaterial)
             }
